@@ -98,6 +98,27 @@
   .nav a.on { background: color-mix(in srgb, var(--btn) 86%, transparent); color: var(--btn-text);
     box-shadow: inset 0 1px 1px rgba(255,255,255,.35), 0 6px 14px rgba(11,7,5,.28); }
   .nav svg { width: 21px; height: 21px; }
+  .item { position: relative; }
+  .qty { position: absolute; top: 16px; right: 16px; min-width: 26px; height: 26px; padding: 0 7px; border-radius: 99px; background: var(--brand);
+    color: var(--brand-text); font-weight: 800; font-size: 13px; display: grid; place-items: center; box-shadow: 0 4px 10px rgba(11,7,5,.25); }
+  .cart { cursor: pointer; }
+  .sheet-bg { position: fixed; inset: 0; background: rgba(11,7,5,.45); z-index: 24; }
+  .sheet { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(460px, 100%); max-height: 78vh; overflow: auto; z-index: 25;
+    background: #fff; border-radius: 28px 28px 0 0; padding: 10px 18px 22px; box-shadow: 0 -20px 50px rgba(11,7,5,.25); }
+  .sheet .grab { width: 44px; height: 5px; border-radius: 9px; background: #E2DAD3; margin: 0 auto 12px; }
+  .sheet h3 { font-size: 19px; }
+  .line { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid #F1EBE6; }
+  .line img { width: 54px; height: 54px; border-radius: 14px; object-fit: cover; }
+  .line b { font-size: 14px; display: block; }
+  .line small { color: var(--muted); font-size: 12.5px; }
+  .step { display: flex; align-items: center; gap: 10px; background: var(--cream); border-radius: 99px; padding: 4px; }
+  .step button { width: 30px; height: 30px; border-radius: 50%; background: #fff; font-size: 18px; font-weight: 700; display: grid; place-items: center; }
+  .step button.plus { background: var(--brand); color: var(--brand-text); }
+  .step span { min-width: 16px; text-align: center; font-weight: 800; }
+  .sum { display: flex; justify-content: space-between; padding: 14px 0 4px; font-size: 14px; color: var(--muted); }
+  .sum.total { color: var(--ink); font-size: 18px; font-weight: 800; padding-bottom: 14px; }
+  .sheet .pill { width: 100%; margin-top: 8px; }
+  .sheet .pill.close { width: auto; margin: 0; padding: 8px 14px; background: var(--cream); }
   .toast { position: fixed; left: 50%; top: 18px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 14px; font-size: 13px;
     opacity: 0; transition: opacity .25s; z-index: 30; max-width: 90%; text-align: center; pointer-events: none; }
   .toast.show { opacity: 1; }
@@ -124,18 +145,18 @@
   </header>
 
   <h1 data-name></h1>
-  <p class="lead">Comida feita na hora, do jeito que você gosta. Peça para entregar ou reserve sua mesa.</p>
+  <p class="lead" id="tagline"></p>
   <span class="status"><i></i>Aberto agora · fecha às 23h</span>
 
   <label class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input id="q" placeholder="Buscar no cardápio" autocomplete="off"></label>
 
   <section class="feature">
-    <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=500&q=70" alt="Prato do dia">
-    <span class="tag">★ Prato do dia</span>
-    <h3>Filé ao molho madeira com fritas</h3>
-    <p>Hoje com 15% de desconto no delivery.</p>
-    <button class="pill brand" data-order="Filé ao molho madeira">Pedir agora</button>
+    <img id="featImg" alt="">
+    <span class="tag" id="featTag"></span>
+    <h3 id="featTitle"></h3>
+    <p id="featText"></p>
+    <button class="pill brand" id="featBtn" data-order="">Pedir agora</button>
   </section>
 
   <div class="ctas">
@@ -169,7 +190,17 @@
   <p class="foot">Site de demonstração criado por <b id="by"></b> para <b data-name></b>.<br>Não é o site oficial do restaurante.</p>
 </div>
 
-<div class="cart" id="cart"><div><b id="cartTotal"></b><small id="cartItems"></small></div><button class="pill brand" style="margin:0" data-send>Enviar pedido</button></div>
+<div class="cart" id="cart" data-open-cart><div><b id="cartTotal"></b><small id="cartItems"></small></div><button class="pill brand" style="margin:0">Ver pedido</button></div>
+<div class="sheet-bg" id="sheetBg" data-close-cart hidden></div>
+<section class="sheet" id="sheet" aria-label="Seu pedido" hidden>
+  <div class="grab"></div>
+  <div class="row"><h3>Seu pedido</h3><button class="pill light close" data-close-cart>Fechar</button></div>
+  <div id="lines"></div>
+  <div class="sum"><span>Entrega</span><span>Grátis</span></div>
+  <div class="sum total"><span>Total</span><span id="sheetTotal"></span></div>
+  <button class="pill brand" data-send>Enviar pedido pelo WhatsApp</button>
+  <button class="pill light" data-clear>Limpar pedido</button>
+</section>
 
 <nav class="nav">
   <a href="#app" class="on" aria-label="Início"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></a>
@@ -195,22 +226,63 @@
 
 <script>
 (() => {
-  // Tudo vem do link: ?nome=…&cor=…&logo=…&whats=…&end=…&nota=…&aval=…&por=… (nada é salvo em lugar nenhum).
+  // Tudo vem do link: ?tipo=…&nome=…&cor=…&cor2=…&logo=…&whats=…&end=…&nota=…&aval=…&por=… (nada é salvo em lugar nenhum).
   const P = new URLSearchParams(location.search);
   const img = (id, w = 500) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
-  const MENU = [
-    { cat: 'Pratos', name: 'Picanha na brasa', desc: 'Farofa, vinagrete e mandioca', price: 79.9, img: '1558030006-450675393462' },
-    { cat: 'Pratos', name: 'Costela ao barbecue', desc: 'Assada por 8 horas', price: 69.9, img: '1544025162-d76694265947' },
-    { cat: 'Pratos', name: 'Filé grelhado', desc: 'Com legumes na manteiga', price: 59.9, img: '1432139555190-58524dae6a55' },
-    { cat: 'Massas e pizzas', name: 'Pizza margherita', desc: 'Molho de tomate, muçarela e manjericão', price: 54.9, img: '1565299624946-b28f40a0ae38' },
-    { cat: 'Massas e pizzas', name: 'Penne ao sugo', desc: 'Tomates frescos e parmesão', price: 42.9, img: '1621996346565-e3dbc646d9a9' },
-    { cat: 'Lanches', name: 'Burger da casa', desc: 'Blend 180 g, cheddar e bacon', price: 38.9, img: '1568901346375-23c9450c58cd' },
-    { cat: 'Especiais', name: 'Combinado 20 peças', desc: 'Sushis e sashimis do dia', price: 74.9, img: '1579871494447-9811cf80d66c' },
-    { cat: 'Saladas', name: 'Salada da estação', desc: 'Folhas, grãos e frango', price: 32.9, img: '1540189549336-e6e99c3679fe' },
-    { cat: 'Sobremesas', name: 'Bolo da casa', desc: 'Fatia com frutas vermelhas', price: 22.9, img: '1565958011703-44f9829ba187' },
-    { cat: 'Bebidas', name: 'Drinks da casa', desc: 'Caipirinhas e coquetéis', price: 29.9, img: '1544145945-f90425340c7e' },
-  ];
-  const TREND = [3, 5, 1, 8];
+  const it = (cat, name, desc, price, photo) => ({ cat, name, desc, price, img: photo });
+  const DRINKS = '1544145945-f90425340c7e';
+  const CAKE = '1565958011703-44f9829ba187';
+  const TEMPLATES = {
+    restaurante: { nome: 'Casa Bella', cor: '#D79C45', cor2: '#0B0705', tagline: 'Comida feita na hora, do jeito que você gosta. Peça para entregar ou reserve sua mesa.',
+      feat: { tag: '★ Prato do dia', title: 'Filé ao molho madeira com fritas', text: 'Hoje com 15% de desconto no delivery.', img: '1600891964092-4316c288032e', order: 'Filé ao molho madeira' },
+      trend: [3, 5, 0, 8], items: [
+        it('Pratos', 'Picanha na brasa', 'Farofa, vinagrete e mandioca', 79.9, '1558030006-450675393462'),
+        it('Pratos', 'Costela ao barbecue', 'Assada por 8 horas', 69.9, '1544025162-d76694265947'),
+        it('Pratos', 'Filé grelhado', 'Com legumes na manteiga', 59.9, '1432139555190-58524dae6a55'),
+        it('Massas e pizzas', 'Pizza margherita', 'Molho de tomate, muçarela e manjericão', 54.9, '1565299624946-b28f40a0ae38'),
+        it('Massas e pizzas', 'Penne ao sugo', 'Tomates frescos e parmesão', 42.9, '1621996346565-e3dbc646d9a9'),
+        it('Lanches', 'Burger da casa', 'Blend 180 g, cheddar e bacon', 38.9, '1568901346375-23c9450c58cd'),
+        it('Especiais', 'Combinado 20 peças', 'Sushis e sashimis do dia', 74.9, '1579871494447-9811cf80d66c'),
+        it('Saladas', 'Salada da estação', 'Folhas, grãos e frango', 32.9, '1540189549336-e6e99c3679fe'),
+        it('Sobremesas', 'Bolo da casa', 'Fatia com frutas vermelhas', 22.9, CAKE),
+        it('Bebidas', 'Drinks da casa', 'Caipirinhas e coquetéis', 29.9, DRINKS)] },
+    pizzaria: { nome: 'Pizzaria Bella Napoli', cor: '#C0392B', cor2: '#14301F', tagline: 'Massa de fermentação natural e forno a lenha. Peça a sua quentinha ou venha comer aqui.',
+      feat: { tag: '★ Promoção do dia', title: 'Pizza grande + refrigerante 2 L', text: 'Qualquer sabor tradicional por R$ 59,90.', img: '1571407970349-bc81e7e96d47', order: 'Promoção pizza grande + refrigerante' },
+      trend: [0, 2, 4, 3], items: [
+        it('Tradicionais', 'Margherita', 'Molho de tomate, muçarela e manjericão', 49.9, '1604068549290-dea0e4a305ca'),
+        it('Tradicionais', 'Calabresa', 'Calabresa, cebola e azeitona', 52.9, '1594007654729-407eedc4be65'),
+        it('Tradicionais', 'Portuguesa', 'Presunto, ovo, cebola e ervilha', 54.9, '1590947132387-155cc02f3212'),
+        it('Tradicionais', 'Quatro queijos', 'Muçarela, provolone, parmesão e gorgonzola', 58.9, '1620374645310-f9d97e733268'),
+        it('Especiais', 'Pepperoni', 'Pepperoni fatiado e muçarela', 56.9, '1628840042765-356cda07504e'),
+        it('Especiais', 'Parma com rúcula', 'Presunto parma, rúcula e tomate seco', 64.9, '1528137871618-79d2761e3fd5'),
+        it('Especiais', 'Rúcula com tomate seco', 'Muçarela de búfala e rúcula fresca', 55.9, '1593560708920-61dd98c46a4e'),
+        it('Bebidas', 'Sucos e drinks', 'Sucos naturais e caipirinhas', 14.9, DRINKS),
+        it('Sobremesas', 'Bolo de chocolate', 'Fatia generosa', 19.9, CAKE)] },
+    lanches: { nome: 'Burger House', cor: '#F59E0B', cor2: '#1C1917', tagline: 'Hambúrguer artesanal na chapa, batata crocante e milkshake cremoso. Delivery rápido.',
+      feat: { tag: '★ Combo do dia', title: 'Burger + fritas + refrigerante', text: 'O combo mais pedido por R$ 39,90.', img: '1594212699903-ec8a3eca50f5', order: 'Combo burger + fritas + refrigerante' },
+      trend: [2, 1, 4, 7], items: [
+        it('Burgers', 'Burger clássico', 'Blend 150 g, queijo, alface e tomate', 32.9, '1571091718767-18b5b1457add'),
+        it('Burgers', 'Cheddar bacon', 'Blend 180 g, cheddar cremoso e bacon', 38.9, '1586190848861-99aa4a171e90'),
+        it('Burgers', 'Duplo da casa', 'Dois blends, cheddar e cebola caramelizada', 44.9, '1550547660-d9450f859349'),
+        it('Burgers', 'Smash burger', 'Dois smash de 80 g e queijo', 29.9, '1603064752734-4c48eff53d05'),
+        it('Lanches', 'Cachorro-quente', 'Salsicha, purê, batata palha e molhos', 24.9, '1619740455993-9e612b1af08a'),
+        it('Porções', 'Fritas', 'Porção crocante', 18.9, '1630384060421-cb20d0e0649d'),
+        it('Porções', 'Fritas com cheddar e bacon', 'Para dividir', 27.9, '1573080496219-bb080dd4f877'),
+        it('Bebidas', 'Milkshake', 'Chocolate, morango ou baunilha', 21.9, '1572490122747-3968b75cc699')] },
+    sushi: { nome: 'Sushi Kaze', cor: '#B91C1C', cor2: '#111111', tagline: 'Peixe fresco todos os dias, preparado na hora pelo nosso sushiman. Delivery e rodízio.',
+      feat: { tag: '★ Combinado do dia', title: 'Combinado especial 30 peças', text: 'Sushis, uramakis e sashimis por R$ 99,90.', img: '1579584425555-c3ce17fd4351', order: 'Combinado especial 30 peças' },
+      trend: [0, 3, 1, 5], items: [
+        it('Combinados', 'Combinado 20 peças', 'Sushis, uramakis e sashimis', 79.9, '1611143669185-af224c5e3252'),
+        it('Combinados', 'Barca para 2', '40 peças variadas', 139.9, '1553621042-f6e147245754'),
+        it('Combinados', 'Executivo 12 peças', 'Ideal para o almoço', 44.9, '1562436260-8c9216eeb703'),
+        it('Peças', 'Sashimi de salmão', '10 fatias', 49.9, '1583623025817-d180a2221d0a'),
+        it('Peças', 'Niguiri de salmão', '4 unidades', 29.9, '1615361200141-f45040f367be'),
+        it('Rolls', 'Uramaki Filadélfia', 'Salmão, cream cheese e cebolinha (8 peças)', 34.9, '1617196034183-421b4917c92d'),
+        it('Rolls', 'Hot Filadélfia', 'Empanado, salmão e cream cheese (8 peças)', 32.9, '1580822184713-fc5400e7fe10'),
+        it('Bebidas', 'Saquê e drinks', 'Saquê gelado e caipisaquê', 24.9, DRINKS)] },
+  };
+  const T = TEMPLATES[P.get('tipo')] || TEMPLATES.restaurante;
+  const MENU = T.items;
   const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const $ = (s) => document.querySelector(s);
   const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); Object.assign(e, attrs); e.append(...kids); return e; };
@@ -218,10 +290,10 @@
 
   const st = {};
   function apply() {
-    st.nome = (P.get('nome') || 'Casa Bella').slice(0, 60);
     const hex = (k, d) => (/^[0-9a-f]{6}$/i.test(P.get(k) || '') ? '#' + P.get(k) : d);
-    st.cor = hex('cor', '#D79C45');
-    st.cor2 = hex('cor2', '#0B0705');
+    st.nome = (P.get('nome') || T.nome).slice(0, 60);
+    st.cor = hex('cor', T.cor);
+    st.cor2 = hex('cor2', T.cor2);
     st.logo = /^https?:\/\//i.test(P.get('logo') || '') ? P.get('logo') : '';
     st.whats = (P.get('whats') || '').replace(/\D/g, '').slice(0, 13);
     st.end = (P.get('end') || 'Rua das Flores, 120 · Centro').slice(0, 120);
@@ -236,18 +308,33 @@
     css.setProperty('--brand-text', textOn(st.cor));
     css.setProperty('--btn', st.cor2);
     css.setProperty('--btn-text', textOn(st.cor2));
-    document.title = `${st.nome} · Cardápio e reservas`;
+    document.title = `${st.nome} · Cardápio e pedidos`;
     document.querySelectorAll('[data-name]').forEach((n) => { n.textContent = st.nome; });
     const words = st.nome.split(/\s+/).filter((w) => w && !/^(d[aeo]s?|e|o|a|&|the)$/i.test(w));
     const initials = (words.length ? words : [st.nome]).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
     $('#logo').replaceChildren(st.logo ? el('img', { src: st.logo, alt: '' }) : initials);
+    $('#tagline').textContent = T.tagline;
+    $('#featImg').src = img(T.feat.img);
+    $('#featImg').alt = T.feat.title;
+    $('#featTag').textContent = T.feat.tag;
+    $('#featTitle').textContent = T.feat.title;
+    $('#featText').textContent = T.feat.text;
+    $('#featBtn').dataset.order = T.feat.order;
     $('#addr').textContent = st.end;
     $('#maps').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${st.nome} ${st.end}`)}`;
     $('#rating').textContent = `${st.nota} de 5 · ${st.aval} avaliações no Google`;
     $('#by').textContent = st.por;
   }
 
+  // Pedido: itens com quantidade (+ e −), total e envio pelo WhatsApp do restaurante
   const cart = new Map();
+  const qtyOf = (i) => cart.get(i) || 0;
+  function change(i, d) {
+    const q = Math.max(0, qtyOf(i) + d);
+    if (q) cart.set(i, q); else cart.delete(i);
+    paintCart();
+    paintMenu();
+  }
   function wa(text) {
     if (!st.whats) return toast('Exemplo: aqui abre o WhatsApp do restaurante com a mensagem pronta.');
     window.open(`https://wa.me/${st.whats}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
@@ -259,9 +346,22 @@
     $('#cart').classList.toggle('show', qty > 0);
     $('#cartTotal').textContent = brl(total);
     $('#cartItems').textContent = `${qty} ${qty === 1 ? 'item' : 'itens'} no pedido`;
+    $('#sheetTotal').textContent = brl(total);
+    $('#lines').replaceChildren(...items.map(([i, q]) => el('div', { className: 'line' },
+      el('img', { src: img(MENU[i].img, 120), alt: '' }),
+      el('div', {}, el('b', { textContent: MENU[i].name }), el('small', { textContent: `${q} × ${brl(MENU[i].price)} = ${brl(MENU[i].price * q)}` })),
+      el('div', { className: 'step' },
+        el('button', { textContent: '−', ariaLabel: 'Tirar um', onclick: () => change(i, -1) }),
+        el('span', { textContent: q }),
+        el('button', { className: 'plus', textContent: '+', ariaLabel: 'Mais um', onclick: () => change(i, 1) })))));
+    if (!qty) openCart(false);
+  }
+  function openCart(on) {
+    $('#sheet').hidden = !on;
+    $('#sheetBg').hidden = !on;
   }
   const addBtn = (i) => el('button', { className: 'add', textContent: '+', ariaLabel: 'Adicionar', onclick: () => {
-    cart.set(i, (cart.get(i) || 0) + 1); paintCart(); toast(`${MENU[i].name} no pedido`);
+    change(i, 1); toast(`${MENU[i].name} no pedido`);
   } });
 
   let cat = 'Todos';
@@ -271,38 +371,42 @@
     $('#count').textContent = `${list.length} ${list.length === 1 ? 'opção' : 'opções'}`;
     $('#grid').replaceChildren(...list.map(([m, i]) => el('div', { className: 'item' },
       el('img', { src: img(m.img, 400), alt: m.name, loading: 'lazy' }), el('b', { textContent: m.name }), el('p', { textContent: m.desc }),
-      el('div', { className: 'row' }, el('span', { className: 'price', textContent: brl(m.price) }), addBtn(i)))));
+      el('div', { className: 'row' }, el('span', { className: 'price', textContent: brl(m.price) }), addBtn(i)),
+      ...(qtyOf(i) ? [el('span', { className: 'qty', textContent: qtyOf(i) })] : []))));
     const cats = ['Todos', ...new Set(MENU.map((m) => m.cat))];
     $('#chips').replaceChildren(...cats.map((c) => el('button', { className: `chip${c === cat ? ' on' : ''}`, onclick: () => { cat = c; paintMenu(); } },
       el('img', { src: img((MENU.find((m) => m.cat === c) || MENU[0]).img, 80), alt: '' }), c)));
   }
-  $('#trend').replaceChildren(...TREND.map((i) => el('div', { className: 'tcard' },
+  $('#trend').replaceChildren(...T.trend.map((i) => el('div', { className: 'tcard' },
     el('div', { className: 'row' }, el('b', { textContent: MENU[i].name }), addBtn(i)),
     el('div', { className: 'meta' }, el('span', { className: 'star', textContent: '★' }), `4,${9 - (i % 3)} · ${MENU[i].cat}`),
     el('img', { src: img(MENU[i].img, 400), alt: MENU[i].name, loading: 'lazy' }))));
 
   document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-open-cart]')) return openCart(true);
+    if (e.target.closest('[data-close-cart]')) return openCart(false);
     const t = e.target.closest('button, a');
     if (!t) return;
     if (t.dataset.toast) toast(t.dataset.toast);
-    if (t.dataset.order !== undefined) wa(`Olá! Quero pedir: ${t.dataset.order} 😋`);
+    if (t.dataset.order) wa(`Olá! Quero pedir: ${t.dataset.order} 😋`);
     if (t.hasAttribute('data-delivery')) wa('Olá! Quero fazer um pedido para entrega.');
     if (t.hasAttribute('data-reserve')) wa('Olá! Gostaria de reservar uma mesa. Para quantas pessoas e que horário tem disponível?');
     if (t.hasAttribute('data-send')) wa(`Olá! Meu pedido:\n${[...cart.entries()].map(([i, q]) => `${q}x ${MENU[i].name}`).join('\n')}\nTotal: ${$('#cartTotal').textContent}`);
+    if (t.hasAttribute('data-clear')) { cart.clear(); paintCart(); paintMenu(); }
     if (t.hasAttribute('data-share')) navigator.share ? navigator.share({ title: st.nome, url: location.href }).catch(() => {}) : toast('Link pronto para compartilhar.');
     if (t.closest('.nav')) { document.querySelectorAll('.nav a').forEach((a) => a.classList.toggle('on', a === t)); }
   });
   $('#q').addEventListener('input', paintMenu);
 
   apply(); // antes do Personalizar: ele começa com as cores e o nome que já estão no link
-  // Personalizar (só no seu PC): muda nome, cores, logo… e copia o link para mandar ao cliente.
+  // Personalizar (só com ?editar no link): muda nome, cores, logo… e copia o link para mandar ao cliente.
   const local = P.has('editar'); // só no link de editar; o link copiado abre limpo, sem o botão
   if (local) {
     $('#editBtn').hidden = false;
     $('#editBtn').onclick = () => $('#editor').classList.toggle('show');
     document.querySelectorAll('[data-f]').forEach((f) => {
       const color = f.type === 'color';
-      f.value = color ? st[f.dataset.f] : (P.get(f.dataset.f) || (f.dataset.f === 'nome' ? st.nome : ''));
+      f.value = color ? st[f.dataset.f].toLowerCase() : (P.get(f.dataset.f) || (f.dataset.f === 'nome' ? st.nome : ''));
       f.addEventListener('input', () => {
         const v = color ? f.value.replace('#', '') : f.value.trim();
         if (v) P.set(f.dataset.f, v); else P.delete(f.dataset.f);
