@@ -250,7 +250,6 @@
     </div>
   </div>
 
-  <p class="foot">Site de demonstração criado por <b id="by"></b> para <b data-name></b>.<br>Não é o site oficial do restaurante.</p>
 </div>
 
 <div class="cart" id="cart" data-go="pedido"><div><b id="cartTotal"></b><small id="cartItems"></small></div><button class="pill brand" style="margin:0">Ver pedido</button></div>
@@ -382,7 +381,6 @@
     $('#mapFrame').dataset.src = `https://maps.google.com/maps?q=${place}&z=15&output=embed`;
     if ($('#mapFrame').src) $('#mapFrame').src = $('#mapFrame').dataset.src;
     $('#rating').textContent = `${st.nota} de 5 · ${st.aval} avaliações no Google`;
-    $('#by').textContent = st.por;
   }
 
   // Pedido: itens com quantidade (+ e −), total e envio pelo WhatsApp do restaurante
