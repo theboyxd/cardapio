@@ -280,6 +280,8 @@
 (() => {
   // Tudo vem do link: ?tipo=…&nome=…&cor=…&cor2=…&logo=…&whats=…&end=…&nota=…&aval=…&por=… (nada é salvo em lugar nenhum).
   const P = new URLSearchParams(location.search);
+  // Página própria de um cliente (ex.: …/cardapio/pizzaria-do-ze/): a configuração vem gravada nela, sem nada no link.
+  Object.entries(window.__CFG__ || {}).forEach(([k, v]) => { if (!P.has(k)) P.set(k, String(v)); });
   const PLUS = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
   const MINUS = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg>';
   const img = (id, w = 500) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
