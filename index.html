@@ -54,7 +54,14 @@
   .chip.on { background: var(--btn); color: var(--btn-text); box-shadow: inset 0 0 0 2px var(--brand); }
   h2 { font-size: 18px; margin: 24px 0 12px; display: flex; justify-content: space-between; align-items: baseline; }
   h2 small { font-size: 13px; color: var(--muted); font-weight: 600; }
-  .trend { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+  .trend { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; scroll-snap-type: x proximity; }
+  .trend, .chips { user-select: none; cursor: grab; }
+  .trend img, .chips img { -webkit-user-drag: none; }
+  .tcard { scroll-snap-align: start; }
+  .arrows { display: flex; gap: 6px; }
+  .arr { width: 34px; height: 34px; border-radius: 50%; background: var(--card); font-size: 20px; line-height: 1; display: grid; place-items: center;
+    box-shadow: 0 2px 8px rgba(11,7,5,.08); }
+  .arr:disabled { opacity: .35; cursor: default; }
   .trend::-webkit-scrollbar { display: none; }
   .tcard { flex: none; width: 168px; border-radius: 24px; padding: 12px; background: color-mix(in srgb, var(--brand) 18%, #fff); }
   .tcard:nth-child(2n) { background: color-mix(in srgb, var(--soft) 55%, #fff); }
@@ -93,7 +100,7 @@
     box-shadow: 0 14px 34px rgba(11,7,5,.20), inset 0 1px 1px rgba(255,255,255,.85), inset 0 -1px 1px rgba(255,255,255,.25), inset 0 0 18px rgba(255,255,255,.18); }
   .nav::before { content: ""; position: absolute; inset: 1px; border-radius: inherit; pointer-events: none; z-index: -1;
     background: linear-gradient(180deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,.08) 48%, rgba(255,255,255,0) 52%, rgba(255,255,255,.12) 100%); }
-  .nav a { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; color: var(--ink); transition: background .25s, transform .2s; }
+  .nav a { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; color: var(--ink); transition: transform .2s; }
   .nav a:active { transform: scale(.92); }
   .nav a.on { background: color-mix(in srgb, var(--btn) 86%, transparent); color: var(--btn-text);
     box-shadow: inset 0 1px 1px rgba(255,255,255,.35), 0 6px 14px rgba(11,7,5,.28); }
@@ -102,11 +109,6 @@
   .qty { position: absolute; top: 16px; right: 16px; min-width: 26px; height: 26px; padding: 0 7px; border-radius: 99px; background: var(--brand);
     color: var(--brand-text); font-weight: 800; font-size: 13px; display: grid; place-items: center; box-shadow: 0 4px 10px rgba(11,7,5,.25); }
   .cart { cursor: pointer; }
-  .sheet-bg { position: fixed; inset: 0; background: rgba(11,7,5,.45); z-index: 24; }
-  .sheet { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(460px, 100%); max-height: 78vh; overflow: auto; z-index: 25;
-    background: #fff; border-radius: 28px 28px 0 0; padding: 10px 18px 22px; box-shadow: 0 -20px 50px rgba(11,7,5,.25); }
-  .sheet .grab { width: 44px; height: 5px; border-radius: 9px; background: #E2DAD3; margin: 0 auto 12px; }
-  .sheet h3 { font-size: 19px; }
   .line { display: grid; grid-template-columns: 54px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid #F1EBE6; }
   .line img { width: 54px; height: 54px; border-radius: 14px; object-fit: cover; }
   .line b { font-size: 14px; display: block; }
@@ -117,8 +119,27 @@
   .step span { min-width: 16px; text-align: center; font-weight: 800; }
   .sum { display: flex; justify-content: space-between; padding: 14px 0 4px; font-size: 14px; color: var(--muted); }
   .sum.total { color: var(--ink); font-size: 18px; font-weight: 800; padding-bottom: 14px; }
-  .sheet .pill { width: 100%; margin-top: 8px; }
-  .sheet .pill.close { width: auto; margin: 0; padding: 8px 14px; background: var(--cream); }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--cream); border-radius: 99px; padding: 4px; margin: 14px 0 6px; }
+  .seg button { border-radius: 99px; padding: 9px 0; font-weight: 700; font-size: 13.5px; color: var(--muted); }
+  .seg button.on { background: var(--btn); color: var(--btn-text); }
+  .fld { display: block; font-size: 13px; font-weight: 600; margin-top: 10px; }
+  .fld em { color: var(--muted); font-weight: 500; font-style: normal; }
+  .fld input { width: 100%; margin-top: 6px; padding: 12px 14px; border-radius: 14px; border: 1px solid #E5DDD6; font: inherit; font-size: 14.5px; background: #fff; }
+  .fld input:focus { outline: 2px solid var(--brand); outline-offset: 1px; border-color: transparent; }
+  .fld.miss input { border-color: #dc2626; background: #fff5f5; }
+  .tab-title { font-size: 26px; letter-spacing: -.4px; margin: 20px 0 4px; font-weight: 800; }
+  .tab-sub { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  .panel { background: var(--card); border-radius: 24px; padding: 14px 16px; margin-top: 14px; }
+  .wide { width: 100%; margin-top: 10px; }
+  .empty-cart { text-align: center; padding: 40px 10px; color: var(--muted); }
+  .empty-cart b { display: block; color: var(--ink); font-size: 17px; margin-bottom: 4px; }
+  .fld select, .fld input[type=date] { width: 100%; margin-top: 6px; padding: 12px 14px; border-radius: 14px; border: 1px solid #E5DDD6; font: inherit; font-size: 14.5px; background: #fff; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .people { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; font-size: 13px; font-weight: 600; }
+  .map { width: 100%; height: 230px; border: 0; border-radius: 22px; margin-top: 14px; background: #E6E1DC; }
+  .nav a { position: relative; }
+  .nav .count { position: absolute; top: 2px; right: 0; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 99px; background: var(--brand);
+    color: var(--brand-text); font-size: 11px; font-weight: 800; display: grid; place-items: center; }
   .toast { position: fixed; left: 50%; top: 18px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 14px; font-size: 13px;
     opacity: 0; transition: opacity .25s; z-index: 30; max-width: 90%; text-align: center; pointer-events: none; }
   .toast.show { opacity: 1; }
@@ -144,6 +165,7 @@
     </div>
   </header>
 
+  <div data-tab="home">
   <h1 data-name></h1>
   <p class="lead" id="tagline"></p>
   <span class="status"><i></i>Aberto agora · fecha às 23h</span>
@@ -160,53 +182,82 @@
   </section>
 
   <div class="ctas">
-    <button class="pill dark" data-reserve>Reservar mesa</button>
-    <button class="pill light" data-delivery>Pedir delivery</button>
+    <button class="pill dark" data-go="reservas">Reservar mesa</button>
+    <button class="pill light" data-scroll="cardapio">Pedir delivery</button>
   </div>
 
   <div class="chips" id="chips"></div>
 
-  <h2>Mais pedidos <small>da semana</small></h2>
+  <h2>Mais pedidos <span class="arrows"><button class="arr" type="button" data-slide="-1" aria-label="Voltar">‹</button><button class="arr" type="button" data-slide="1" aria-label="Ver mais">›</button></span></h2>
   <div class="trend" id="trend"></div>
 
   <h2 id="cardapio">Cardápio <small id="count"></small></h2>
   <div class="grid" id="grid"></div>
 
-  <h2 id="reservas">Reservas</h2>
-  <section class="reserve">
-    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70" alt="Salão do restaurante">
-    <h3>Reserve sua mesa</h3>
-    <p>Aniversários, encontros e almoço de família. Confirmamos pelo WhatsApp.</p>
-    <button class="pill brand" data-reserve style="align-self:flex-start;margin:0">Quero reservar</button>
-  </section>
+  </div>
 
-  <h2 id="contato">Onde estamos</h2>
-  <div class="info">
-    <a id="maps" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span id="addr"></span></a>
-    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Seg a qui 11h–23h · Sex e sáb 11h–0h · Dom 11h–22h</span></div>
-    <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .7-5.3 4.8 1.6 7L12 17.6 5.7 21l1.6-7L2 9.3l7-.7z"/></svg><span id="rating"></span></div>
+  <div data-tab="pedido" hidden>
+    <h1 class="tab-title">Seu pedido</h1>
+    <div class="empty-cart" id="cartEmpty"><b>Seu pedido está vazio</b>Escolha os pratos no cardápio e toque no +.
+      <button class="pill dark wide" data-go="home">Ver o cardápio</button></div>
+    <div id="cartFull" hidden>
+      <div class="panel"><div id="lines"></div></div>
+      <div class="seg" id="mode"><button type="button" class="on" data-mode="entrega">Entrega</button><button type="button" data-mode="retirada">Retirar no local</button></div>
+      <div id="addrBox">
+        <label class="fld" id="addrFld">Endereço de entrega<input id="delAddr" placeholder="Rua, número e bairro" autocomplete="street-address"></label>
+        <label class="fld">Complemento ou referência <em>(opcional)</em><input id="delRef" placeholder="Apto, bloco, perto de…"></label>
+      </div>
+      <div class="sum"><span id="modeLabel">Entrega</span><span id="modeFee">Grátis</span></div>
+      <div class="sum total"><span>Total</span><span id="sheetTotal"></span></div>
+      <button class="pill brand wide" data-send>Enviar pedido pelo WhatsApp</button>
+      <button class="pill light wide" data-clear>Limpar pedido</button>
+    </div>
+  </div>
+
+  <div data-tab="reservas" hidden>
+    <h1 class="tab-title">Reservar mesa</h1>
+    <p class="tab-sub">Escolha o dia e o horário. A confirmação chega pelo WhatsApp.</p>
+    <section class="reserve">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70" alt="Salão do restaurante">
+      <h3>Aniversários, encontros e almoço de família</h3>
+      <p>Reserve com antecedência nos fins de semana.</p>
+    </section>
+    <div class="panel">
+      <div class="two">
+        <label class="fld">Dia<input type="date" id="rDate"></label>
+        <label class="fld">Horário<select id="rTime"></select></label>
+      </div>
+      <div class="people"><span>Pessoas</span><div class="step"><button type="button" data-people="-1">−</button><span id="rPeople">2</span><button type="button" class="plus" data-people="1">+</button></div></div>
+      <label class="fld" id="rNameFld">Seu nome<input id="rName" placeholder="Nome para a reserva" autocomplete="name"></label>
+      <label class="fld">Observação <em>(opcional)</em><input id="rNote" placeholder="Aniversário, cadeirinha, área externa…"></label>
+    </div>
+    <button class="pill brand wide" data-book>Confirmar reserva pelo WhatsApp</button>
+  </div>
+
+  <div data-tab="local" hidden>
+    <h1 class="tab-title">Onde estamos</h1>
+    <iframe class="map" id="mapFrame" title="Mapa" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="info" style="margin-top:12px">
+      <a id="maps" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span id="addr"></span></a>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Seg a qui 11h–23h · Sex e sáb 11h–0h · Dom 11h–22h</span></div>
+      <div><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .7-5.3 4.8 1.6 7L12 17.6 5.7 21l1.6-7L2 9.3l7-.7z"/></svg><span id="rating"></span></div>
+    </div>
+    <div class="two" style="margin-top:12px">
+      <a class="pill dark" id="dirLink" target="_blank" rel="noopener">Como chegar</a>
+      <button class="pill light" data-talk>WhatsApp</button>
+    </div>
   </div>
 
   <p class="foot">Site de demonstração criado por <b id="by"></b> para <b data-name></b>.<br>Não é o site oficial do restaurante.</p>
 </div>
 
-<div class="cart" id="cart" data-open-cart><div><b id="cartTotal"></b><small id="cartItems"></small></div><button class="pill brand" style="margin:0">Ver pedido</button></div>
-<div class="sheet-bg" id="sheetBg" data-close-cart hidden></div>
-<section class="sheet" id="sheet" aria-label="Seu pedido" hidden>
-  <div class="grab"></div>
-  <div class="row"><h3>Seu pedido</h3><button class="pill light close" data-close-cart>Fechar</button></div>
-  <div id="lines"></div>
-  <div class="sum"><span>Entrega</span><span>Grátis</span></div>
-  <div class="sum total"><span>Total</span><span id="sheetTotal"></span></div>
-  <button class="pill brand" data-send>Enviar pedido pelo WhatsApp</button>
-  <button class="pill light" data-clear>Limpar pedido</button>
-</section>
+<div class="cart" id="cart" data-go="pedido"><div><b id="cartTotal"></b><small id="cartItems"></small></div><button class="pill brand" style="margin:0">Ver pedido</button></div>
 
 <nav class="nav">
-  <a href="#app" class="on" aria-label="Início"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></a>
-  <a href="#cardapio" aria-label="Cardápio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></a>
-  <a href="#reservas" aria-label="Reservas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg></a>
-  <a href="#contato" aria-label="Contato"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></a>
+  <a href="#" class="on" data-go="home" aria-label="Início e cardápio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></a>
+  <a href="#" data-go="pedido" aria-label="Carrinho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 7h12l1 14H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="count" id="navCount" hidden></span></a>
+  <a href="#" data-go="reservas" aria-label="Reservar mesa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg></a>
+  <a href="#" data-go="local" aria-label="Localização"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></a>
 </nav>
 
 <div class="toast" id="toast"></div>
@@ -321,7 +372,11 @@
     $('#featText').textContent = T.feat.text;
     $('#featBtn').dataset.order = T.feat.order;
     $('#addr').textContent = st.end;
-    $('#maps').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${st.nome} ${st.end}`)}`;
+    const place = encodeURIComponent(`${st.nome} ${st.end}`);
+    $('#maps').href = `https://www.google.com/maps/search/?api=1&query=${place}`;
+    $('#dirLink').href = `https://www.google.com/maps/dir/?api=1&destination=${place}`;
+    $('#mapFrame').dataset.src = `https://maps.google.com/maps?q=${place}&z=15&output=embed`;
+    if ($('#mapFrame').src) $('#mapFrame').src = $('#mapFrame').dataset.src;
     $('#rating').textContent = `${st.nota} de 5 · ${st.aval} avaliações no Google`;
     $('#by').textContent = st.por;
   }
@@ -343,7 +398,11 @@
     const items = [...cart.entries()];
     const total = items.reduce((s, [i, q]) => s + MENU[i].price * q, 0);
     const qty = items.reduce((s, [, q]) => s + q, 0);
-    $('#cart').classList.toggle('show', qty > 0);
+    $('#cart').classList.toggle('show', qty > 0 && tab === 'home');
+    $('#navCount').hidden = !qty;
+    $('#navCount').textContent = qty;
+    $('#cartEmpty').hidden = qty > 0;
+    $('#cartFull').hidden = !qty;
     $('#cartTotal').textContent = brl(total);
     $('#cartItems').textContent = `${qty} ${qty === 1 ? 'item' : 'itens'} no pedido`;
     $('#sheetTotal').textContent = brl(total);
@@ -354,12 +413,28 @@
         el('button', { textContent: '−', ariaLabel: 'Tirar um', onclick: () => change(i, -1) }),
         el('span', { textContent: q }),
         el('button', { className: 'plus', textContent: '+', ariaLabel: 'Mais um', onclick: () => change(i, 1) })))));
-    if (!qty) openCart(false);
   }
-  function openCart(on) {
-    $('#sheet').hidden = !on;
-    $('#sheetBg').hidden = !on;
+
+  // Abas da barra de baixo: início (com o cardápio), carrinho, reserva e localização
+  let tab = 'home';
+  function go(name) {
+    tab = name;
+    document.querySelectorAll('[data-tab]').forEach((x) => { x.hidden = x.dataset.tab !== name; });
+    document.querySelectorAll('.nav a').forEach((a) => a.classList.toggle('on', a.dataset.go === name));
+    if (name === 'local' && !$('#mapFrame').src) $('#mapFrame').src = $('#mapFrame').dataset.src; // o mapa só carrega quando abre
+    paintCart();
+    window.scrollTo(0, 0);
   }
+
+  // Reserva: dia (a partir de hoje), horário e número de pessoas
+  const pad = (n) => String(n).padStart(2, '0');
+  const today = new Date();
+  $('#rDate').min = $('#rDate').value = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+  $('#rTime').replaceChildren(...Array.from({ length: 23 }, (_, k) => {
+    const h = 11 + Math.floor((k + 1) / 2);
+    const label = `${pad(h)}:${(k + 1) % 2 ? '30' : '00'}`;
+    return el('option', { value: label, textContent: label, selected: label === '20:00' });
+  }));
   const addBtn = (i) => el('button', { className: 'add', textContent: '+', ariaLabel: 'Adicionar', onclick: () => {
     change(i, 1); toast(`${MENU[i].name} no pedido`);
   } });
@@ -383,20 +458,77 @@
     el('img', { src: img(MENU[i].img, 400), alt: MENU[i].name, loading: 'lazy' }))));
 
   document.addEventListener('click', (e) => {
-    if (e.target.closest('[data-open-cart]')) return openCart(true);
-    if (e.target.closest('[data-close-cart]')) return openCart(false);
+    const g = e.target.closest('[data-go]');
+    if (g) { e.preventDefault(); return go(g.dataset.go); }
     const t = e.target.closest('button, a');
     if (!t) return;
     if (t.dataset.toast) toast(t.dataset.toast);
     if (t.dataset.order) wa(`Olá! Quero pedir: ${t.dataset.order} 😋`);
-    if (t.hasAttribute('data-delivery')) wa('Olá! Quero fazer um pedido para entrega.');
-    if (t.hasAttribute('data-reserve')) wa('Olá! Gostaria de reservar uma mesa. Para quantas pessoas e que horário tem disponível?');
-    if (t.hasAttribute('data-send')) wa(`Olá! Meu pedido:\n${[...cart.entries()].map(([i, q]) => `${q}x ${MENU[i].name}`).join('\n')}\nTotal: ${$('#cartTotal').textContent}`);
+    if (t.dataset.slide) $('#trend').scrollBy({ left: Number(t.dataset.slide) * 180, behavior: 'smooth' });
+    if (t.dataset.scroll) document.getElementById(t.dataset.scroll).scrollIntoView({ behavior: 'smooth' });
+    if (t.dataset.people) $('#rPeople').textContent = Math.min(20, Math.max(1, Number($('#rPeople').textContent) + Number(t.dataset.people)));
+    if (t.hasAttribute('data-book')) {
+      const name = $('#rName').value.trim();
+      $('#rNameFld').classList.toggle('miss', !name);
+      if (!name) { $('#rName').focus(); return toast('Digite o seu nome para a reserva.'); }
+      const [y, m, d] = $('#rDate').value.split('-');
+      const note = $('#rNote').value.trim();
+      wa(`Olá! Quero reservar uma mesa:\nDia: ${d}/${m}/${y}\nHorário: ${$('#rTime').value}\nPessoas: ${$('#rPeople').textContent}\nNome: ${name}${note ? `\nObservação: ${note}` : ''}`);
+    }
+    if (t.hasAttribute('data-talk')) wa(`Olá! Vi o site de vocês e queria uma informação.`);
+    if (t.dataset.mode) {
+      document.querySelectorAll('#mode button').forEach((b) => b.classList.toggle('on', b === t));
+      const pickup = t.dataset.mode === 'retirada';
+      $('#addrBox').hidden = pickup;
+      $('#modeLabel').textContent = pickup ? 'Retirada' : 'Entrega';
+      $('#modeFee').textContent = pickup ? 'No balcão' : 'Grátis';
+    }
+    if (t.hasAttribute('data-send')) {
+      const pickup = $('#addrBox').hidden;
+      const addr = $('#delAddr').value.trim();
+      const ref = $('#delRef').value.trim();
+      $('#addrFld').classList.toggle('miss', !pickup && !addr);
+      if (!pickup && !addr) { $('#delAddr').focus(); return toast('Digite o endereço de entrega.'); }
+      const items = [...cart.entries()].map(([i, q]) => `${q}x ${MENU[i].name}`).join('\n');
+      const where = pickup ? 'Vou retirar no local.' : `Entregar em: ${addr}${ref ? ` (${ref})` : ''}`;
+      wa(`Olá! Meu pedido:\n${items}\nTotal: ${$('#cartTotal').textContent}\n${where}`);
+    }
     if (t.hasAttribute('data-clear')) { cart.clear(); paintCart(); paintMenu(); }
     if (t.hasAttribute('data-share')) navigator.share ? navigator.share({ title: st.nome, url: location.href }).catch(() => {}) : toast('Link pronto para compartilhar.');
-    if (t.closest('.nav')) { document.querySelectorAll('.nav a').forEach((a) => a.classList.toggle('on', a === t)); }
   });
   $('#q').addEventListener('input', paintMenu);
+
+  // Mais pedidos e categorias rolam para o lado: dedo no celular; no computador, roda do mouse, arrastar ou as setas
+  function sideScroll(row) {
+    row.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || row.scrollWidth <= row.clientWidth) return;
+      const max = row.scrollWidth - row.clientWidth;
+      if ((e.deltaY > 0 && row.scrollLeft >= max - 1) || (e.deltaY < 0 && row.scrollLeft <= 0)) return; // no fim, a página volta a rolar
+      row.scrollLeft += e.deltaY;
+      e.preventDefault();
+    }, { passive: false });
+    let x0 = 0;
+    let s0 = 0;
+    let drag = false;
+    let moved = false;
+    row.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse') { drag = true; moved = false; x0 = e.clientX; s0 = row.scrollLeft; } });
+    window.addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      if (Math.abs(e.clientX - x0) > 5) moved = true;
+      if (moved) row.scrollLeft = s0 - (e.clientX - x0);
+    });
+    window.addEventListener('pointerup', () => { drag = false; setTimeout(() => { moved = false; }, 0); }); // só o clique de soltar é ignorado
+    row.addEventListener('click', (e) => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true); // arrastou: não é clique
+  }
+  document.querySelectorAll('.trend, .chips').forEach(sideScroll);
+  const arrows = () => {
+    const r = $('#trend');
+    document.querySelector('[data-slide="-1"]').disabled = r.scrollLeft <= 0;
+    document.querySelector('[data-slide="1"]').disabled = r.scrollLeft >= r.scrollWidth - r.clientWidth - 1;
+  };
+  $('#trend').addEventListener('scroll', arrows);
+  $('#delAddr').addEventListener('input', () => $('#addrFld').classList.remove('miss'));
+  $('#rName').addEventListener('input', () => $('#rNameFld').classList.remove('miss'));
 
   apply(); // antes do Personalizar: ele começa com as cores e o nome que já estão no link
   // Personalizar (só com ?editar no link): muda nome, cores, logo… e copia o link para mandar ao cliente.
@@ -429,6 +561,7 @@
   }
   paintMenu();
   paintCart();
+  arrows();
 })();
 </script>
 </body>
