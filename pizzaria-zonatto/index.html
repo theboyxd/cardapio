@@ -22,7 +22,7 @@
   .top { display: flex; align-items: center; gap: 12px; }
   .logo { width: 46px; height: 46px; border-radius: 50%; background: var(--brand); color: var(--brand-text); display: grid; place-items: center;
     font-weight: 800; font-size: 18px; overflow: hidden; flex: none; box-shadow: 0 4px 14px color-mix(in srgb, var(--brand) 45%, transparent); }
-  .logo img { width: 100%; height: 100%; object-fit: cover; }
+  .logo img { width: 100%; height: 100%; object-fit: cover; image-rendering: -webkit-optimize-contrast; }
   .who small { display: block; color: var(--muted); font-size: 12.5px; }
   .who b { font-size: 15px; }
   .icons { margin-left: auto; display: flex; gap: 8px; }
@@ -296,7 +296,7 @@
   <p id="linkNote"></p>
 </div>
 
-<script>window.__CFG__ = {"tipo": "pizzaria", "nome": "Pizzaria Zonatto", "cor": "972719", "cor2": "33130f", "logo": "logo.png", "end": "Av. Pl\u00ednio Brasil Milano, 454 - Auxiliadora, Porto Alegre - RS, 90520-001", "nota": "4,4", "aval": "139", "por": "John", "hor": "-|?|1830-2330|1830-2330|1830-2330|1830-2330|1830-2330"};</script>
+<script>window.__CFG__ = {"tipo": "pizzaria", "nome": "Pizzaria Zonatto", "cor": "c6272c", "cor2": "2e0b0d", "logo": "logo.png", "end": "Av. Pl\u00ednio Brasil Milano, 454 - Auxiliadora, Porto Alegre - RS, 90520-001", "nota": "4,4", "aval": "139", "por": "John", "hor": "-|?|1830-2330|1830-2330|1830-2330|1830-2330|1830-2330"};</script>
 <script>
 (() => {
   // Tudo vem do link: ?tipo=…&nome=…&cor=…&cor2=…&logo=…&whats=…&end=…&nota=…&aval=…&por=… (nada é salvo em lugar nenhum).
@@ -404,9 +404,13 @@
     document.title = `${st.nome} · Cardápio e pedidos`;
     document.querySelectorAll('[data-name]').forEach((n) => { n.textContent = st.nome; });
     const words = st.nome.split(/\s+/).filter((w) => w && !/^(d[aeo]s?|e|o|a|&|the)$/i.test(w));
-    const initials = (words.length ? words : [st.nome]).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
-    $('#logo').replaceChildren(st.logo ? el('img', { src: st.logo, alt: '' }) : initials);
-    $('#tagline').textContent = T.tagline;
+    if (st.logo) {
+      const imgEl = el('img', { src: st.logo, alt: '' });
+      imgEl.onerror = () => { $('#logo').replaceChildren(initials); };
+      $('#logo').replaceChildren(imgEl);
+    } else {
+      $('#logo').replaceChildren(initials);
+    }
     $('#featImg').src = img(T.feat.img);
     $('#featImg').alt = T.feat.title;
     $('#featTag').textContent = T.feat.tag;
