@@ -1,0 +1,1942 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Site Profissional Completo · John Sites</title>
+  <meta name="theme-color" content="#0d6e61">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <style>
+    :root {
+      --bg-page: #f2f9f7;
+      --bg-card: #ffffff;
+      --bg-subtle: #f6fbfa;
+      --bg-input: #ffffff;
+      --border-light: #dfeeea;
+      --border-input: #d2e5e0;
+      --border-focus: #38c4ae;
+      --mint-primary: #7ee2ce;
+      --mint-hover: #67d9c2;
+      --mint-active: #52ccb4;
+      --teal-deep: #072b25;
+      --teal-dark: #0c4f45;
+      --teal-mid: #168574;
+      --teal-accent: #2bb8a2;
+      --text-main: #0d2622;
+      --text-secondary: #5c7873;
+      --text-muted: #8aa39e;
+      --danger: #e5484d;
+      --success: #15806d;
+      --shadow-shell: 0 24px 64px rgba(8, 52, 45, 0.07), 0 4px 16px rgba(8, 52, 45, 0.04);
+      --radius-shell: 24px;
+      --radius-box: 16px;
+      --radius-btn: 12px;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(126, 226, 206, 0.22), transparent 42%),
+        radial-gradient(circle at 88% 92%, rgba(22, 133, 116, 0.12), transparent 45%),
+        var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px 40px;
+    }
+
+    /* Barra superior discreta de ambiente / retorno */
+    .top-bar {
+      width: 100%;
+      max-width: 940px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding: 0 4px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+    .back-link:hover {
+      color: var(--teal-dark);
+    }
+
+    .security-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--border-light);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal-mid);
+    }
+
+    /* Container principal de 2 colunas inspirado na Imagem 2 */
+    .checkout-shell {
+      width: 100%;
+      max-width: 940px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-shell);
+      box-shadow: var(--shadow-shell);
+      display: grid;
+      grid-template-columns: 1fr 1.08fr;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Coluna Esquerda: Resumo da Loja e Produto */
+    .col-summary {
+      padding: 36px 34px;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, #ffffff 0%, #fafefd 100%);
+    }
+
+    .store-header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 22px;
+    }
+
+    .store-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(140deg, #7ee2ce 0%, #178978 58%, #094a40 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(15, 110, 96, 0.22);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .store-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .store-info {
+      min-width: 0;
+    }
+
+    .store-name {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .store-sub {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Card Hero Verde-Menta / Teal (Imagem 2) */
+    .product-hero {
+      position: relative;
+      width: 100%;
+      min-height: 290px;
+      border-radius: 20px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 14% 14%, #a6f5e6 0%, rgba(166, 245, 230, 0) 48%),
+        radial-gradient(circle at 88% 22%, #5fd3be 0%, rgba(95, 211, 190, 0) 52%),
+        linear-gradient(145deg, #74dfca 0%, #1c9684 48%, #0b5a4f 86%, #073f37 100%);
+      box-shadow: 0 14px 34px rgba(11, 88, 77, 0.22);
+      margin-bottom: 22px;
+      user-select: none;
+    }
+
+    /* Linhas geométricas sutis de fundo no Hero (inspiradas nas Imagens 1 e 2) */
+    .product-hero-art {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+    }
+
+    .product-hero-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-center-mark {
+      position: relative;
+      z-index: 2;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.35;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .product-hero:hover .hero-center-mark {
+      opacity: 0.5;
+      transform: scale(1.03);
+    }
+
+    .product-hero-bottom {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-product-title {
+      color: #ffffff;
+      font-size: 25px;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 12px rgba(4, 38, 33, 0.28);
+    }
+
+    /* Resumo de valores abaixo do card */
+    .summary-item-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 5px;
+    }
+
+    .summary-item-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .summary-item-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .summary-item-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+
+    /* Cupom de desconto */
+    .coupon-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--teal-mid);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 0;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+    .coupon-trigger:hover {
+      color: var(--teal-dark);
+      text-decoration: underline;
+    }
+
+    .coupon-box {
+      display: none;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .coupon-box.open {
+      display: flex;
+    }
+
+    .coupon-input {
+      flex: 1;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--border-input);
+      border-radius: 9px;
+      font-size: 13px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      color: var(--text-main);
+      outline: none;
+    }
+    .coupon-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(56, 196, 174, 0.15);
+    }
+
+    .coupon-apply-btn {
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 9px;
+      border: 1px solid var(--teal-accent);
+      background: #f1fbf9;
+      color: var(--teal-dark);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .coupon-apply-btn:hover {
+      background: var(--mint-primary);
+    }
+
+    .discount-row {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--success);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .discount-row.active {
+      display: flex;
+    }
+
+    .summary-divider {
+      border: none;
+      border-top: 2px dotted #d3e7e2;
+      margin: 8px 0 16px;
+    }
+
+    .summary-total-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .summary-total-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .summary-total-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    /* Coluna Direita: Formulário e Pagamento */
+    .col-payment {
+      padding: 36px 34px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field-group {
+      margin-bottom: 16px;
+    }
+
+    .field-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 7px;
+    }
+
+    .field-hint {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 44px;
+      padding: 0 14px;
+      border-radius: 11px;
+      border: 1.5px solid var(--border-input);
+      background: var(--bg-input);
+      font-size: 14px;
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .field-input::placeholder {
+      color: #a0b7b2;
+    }
+    .field-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3.5px rgba(56, 196, 174, 0.14);
+    }
+    .field-input.valid {
+      border-color: #7bd6c4;
+    }
+    .field-input.invalid {
+      border-color: var(--danger);
+    }
+
+    /* Seletor de Método de Pagamento (Idêntico à Imagem 2) */
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 4px 0 8px;
+    }
+
+    .methods-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .methods-row-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .method-btn {
+      height: 46px;
+      padding: 0 15px;
+      border-radius: 11px;
+      border: 1.5px solid var(--border-input);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .method-btn:hover {
+      border-color: #98ded0;
+      background: #fafefd;
+    }
+
+    .method-btn.active {
+      border: 2px solid #3cc5b0;
+      background: #f2fbf9;
+      color: #082924;
+      font-weight: 700;
+      box-shadow: 0 3px 12px rgba(60, 197, 176, 0.12);
+    }
+
+    .method-icon {
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--teal-mid);
+      flex-shrink: 0;
+    }
+
+    .method-badge {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(126, 226, 206, 0.35);
+      color: var(--teal-dark);
+    }
+
+    /* Painéis de conteúdo de cada método */
+    .method-panel {
+      display: none;
+      margin-bottom: 18px;
+      animation: fadeIn 0.2s ease;
+    }
+    .method-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Painel BOLETO (Fiel à Imagem 2) */
+    .boleto-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .barcode-visual-box {
+      background: #ffffff;
+      border: 1px solid #e3efec;
+      border-radius: 10px;
+      padding: 16px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .barcode-svg {
+      width: 100%;
+      max-width: 260px;
+      height: 40px;
+    }
+
+    .boleto-line {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.5;
+      word-break: break-all;
+      user-select: all;
+      padding: 0 4px;
+    }
+
+    .boleto-actions {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .boleto-actions.visible {
+      display: grid;
+    }
+
+    .secondary-action-btn {
+      height: 36px;
+      border-radius: 9px;
+      border: 1px solid var(--border-input);
+      background: #ffffff;
+      color: var(--teal-dark);
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .secondary-action-btn:hover {
+      border-color: var(--teal-accent);
+      background: #f0fbf8;
+    }
+
+    .perk-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      padding-left: 2px;
+    }
+    .perk-line svg {
+      color: var(--teal-accent);
+      flex-shrink: 0;
+    }
+
+    /* Painel PIX */
+    .pix-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 18px 16px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .pix-qr-wrap {
+      width: 176px;
+      height: 176px;
+      margin: 0 auto 12px;
+      padding: 10px;
+      background: #ffffff;
+      border: 1px solid #e1efec;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .pix-qr-wrap img, .pix-qr-wrap svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .pix-copy-input {
+      width: 100%;
+      height: 38px;
+      padding: 0 11px;
+      border-radius: 9px;
+      border: 1px solid var(--border-input);
+      background: #ffffff;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      outline: none;
+    }
+
+    .pix-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: #e9f9f5;
+      color: var(--teal-dark);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1eb99f;
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.45; }
+    }
+
+    /* Painel CARTÃO — Inspirado nos 3 Cartões Empilhados da Imagem 1 */
+    .cards-showcase-wrap {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 18px 14px 16px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .cards-stack {
+      position: relative;
+      height: 192px;
+      max-width: 340px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 900px;
+    }
+
+    .yvx-card {
+      position: absolute;
+      width: 248px;
+      height: 154px;
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      user-select: none;
+      overflow: hidden;
+    }
+
+    /* Linhas geométricas dos cartões da Imagem 1 */
+    .yvx-card-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* 1. Cartão Branco (Esquerda na Imagem 1) */
+    .yvx-card.card-white {
+      background: linear-gradient(145deg, #ffffff 0%, #f1f6f5 100%);
+      border: 1px solid #d8e5e2;
+      color: #122623;
+      box-shadow: 0 10px 24px rgba(10, 42, 37, 0.10);
+      transform: translateX(-44px) translateY(8px) rotate(-8deg) scale(0.9);
+      z-index: 1;
+    }
+
+    /* 2. Cartão Mint/Teal (Centro/Frente na Imagem 1) */
+    .yvx-card.card-mint {
+      background:
+        radial-gradient(circle at 18% 18%, #a5f3e4 0%, rgba(165, 243, 228, 0) 50%),
+        linear-gradient(135deg, #7fe3cf 0%, #279f8d 52%, #0c584e 92%, #063b34 100%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      box-shadow: 0 18px 38px rgba(7, 58, 50, 0.28);
+      transform: translateX(0) translateY(-2px) rotate(-1deg) scale(1);
+      z-index: 3;
+    }
+
+    /* 3. Cartão Preto Matte (Direita na Imagem 1) */
+    .yvx-card.card-black {
+      background:
+        radial-gradient(circle at 80% 20%, #263330 0%, transparent 55%),
+        linear-gradient(145deg, #1b2220 0%, #0d1110 65%, #070909 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+      transform: translateX(46px) translateY(10px) rotate(7deg) scale(0.9);
+      z-index: 2;
+    }
+
+    /* Quando o usuário seleciona qual cartão quer ver na frente */
+    .cards-stack[data-front="white"] .card-white {
+      transform: translateX(0) translateY(-2px) rotate(-1deg) scale(1);
+      z-index: 3;
+      box-shadow: 0 18px 38px rgba(10, 52, 45, 0.18);
+    }
+    .cards-stack[data-front="white"] .card-mint {
+      transform: translateX(-44px) translateY(8px) rotate(-8deg) scale(0.9);
+      z-index: 2;
+    }
+    .cards-stack[data-front="white"] .card-black {
+      transform: translateX(46px) translateY(10px) rotate(7deg) scale(0.9);
+      z-index: 1;
+    }
+
+    .cards-stack[data-front="black"] .card-black {
+      transform: translateX(0) translateY(-2px) rotate(-1deg) scale(1);
+      z-index: 3;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.38);
+    }
+    .cards-stack[data-front="black"] .card-mint {
+      transform: translateX(46px) translateY(10px) rotate(7deg) scale(0.9);
+      z-index: 2;
+    }
+    .cards-stack[data-front="black"] .card-white {
+      transform: translateX(-44px) translateY(8px) rotate(-8deg) scale(0.9);
+      z-index: 1;
+    }
+
+    .yvx-card-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .yvx-card-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .yvx-card-chip-row {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 0;
+    }
+
+    .emv-chip {
+      width: 30px;
+      height: 22px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #e7d192 0%, #bfa25c 50%, #f2e2b3 100%);
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+    .card-white .emv-chip {
+      background: linear-gradient(135deg, #d7dfe2 0%, #a5b2b8 50%, #eef3f5 100%);
+    }
+    .emv-chip::before {
+      content: "";
+      position: absolute;
+      inset: 4px 7px;
+      border: 1px solid rgba(0, 0, 0, 0.22);
+      border-radius: 2px;
+    }
+
+    .yvx-card-bottom {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .yvx-card-num {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      opacity: 0.92;
+    }
+
+    .yvx-card-holder {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.78;
+      margin-top: 3px;
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mc-circles {
+      display: inline-flex;
+      align-items: center;
+    }
+    .mc-circle {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+    }
+    .mc-circle.left {
+      background: rgba(235, 0, 27, 0.85);
+    }
+    .mc-circle.right {
+      background: rgba(247, 158, 27, 0.85);
+      margin-left: -7px;
+    }
+
+    .card-edition-switcher {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .edition-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-input);
+      background: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .edition-pill.active {
+      border-color: var(--teal-accent);
+      background: #e9f9f5;
+      color: var(--teal-dark);
+    }
+
+    .card-info-note {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    /* Botão Principal Mint (Idêntico à Imagem 2) */
+    .submit-btn {
+      width: 100%;
+      height: 52px;
+      border-radius: var(--radius-btn);
+      border: none;
+      background: var(--mint-primary);
+      color: var(--teal-deep);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(126, 226, 206, 0.45);
+      transition: background 0.16s, transform 0.12s, box-shadow 0.16s;
+      margin-top: 4px;
+    }
+    .submit-btn:hover:not(:disabled) {
+      background: var(--mint-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(126, 226, 206, 0.58);
+    }
+    .submit-btn:active:not(:disabled) {
+      background: var(--mint-active);
+      transform: translateY(0);
+    }
+    .submit-btn:disabled {
+      opacity: 0.88;
+      cursor: wait;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.4px solid rgba(7, 43, 37, 0.24);
+      border-top-color: var(--teal-deep);
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mensagem de erro / sucesso */
+    .feedback-banner {
+      display: none;
+      padding: 11px 13px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .feedback-banner.error {
+      display: block;
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      color: #be123c;
+    }
+    .feedback-banner.success {
+      display: block;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #047857;
+    }
+
+    /* Rodapé YuvexPay (Idêntico à Imagem 2) */
+    .yuvex-footer {
+      margin-top: 22px;
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .yuvex-footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-main);
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .yuvex-footer-brand:hover {
+      color: var(--teal-mid);
+    }
+
+    /* Responsividade Mobile */
+    @media (max-width: 820px) {
+      body {
+        padding: 14px 10px 30px;
+      }
+      .checkout-shell {
+        grid-template-columns: 1fr;
+      }
+      .col-summary {
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        padding: 24px 20px;
+      }
+      .col-payment {
+        padding: 24px 20px;
+      }
+      .product-hero {
+        min-height: 220px;
+      }
+      .field-row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a class="back-link" id="back-link" href="../" style="visibility:hidden">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      <span>Voltar</span>
+    </a>
+    <div class="security-pill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span>Ambiente Criptografado • YuvexPay</span>
+    </div>
+  </div>
+
+  <main class="checkout-shell">
+    <!-- COLUNA ESQUERDA: Loja, Card Mint/Teal, Resumo e Total -->
+    <section class="col-summary" aria-label="Resumo do pedido">
+      <div class="store-header">
+        <div class="store-avatar" id="store-avatar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="store-info">
+          <div class="store-name" id="ui-store-name">John Sites</div>
+          <div class="store-sub" id="ui-store-sub">Sites Profissionais &amp; Cardápio Digital</div>
+        </div>
+      </div>
+
+      <!-- Hero Card Teal/Mint inspirado na Imagem 2 -->
+      <div class="product-hero" id="product-hero">
+        <svg class="product-hero-art" viewBox="0 0 400 320" fill="none" preserveAspectRatio="none">
+          <path d="M-40 280 C 80 180, 180 320, 440 90" stroke="#ffffff" stroke-width="1.5"/>
+          <path d="M-20 320 C 120 200, 220 340, 460 130" stroke="#ffffff" stroke-width="1.2"/>
+          <path d="M220 -30 L340 160 L250 340" stroke="#ffffff" stroke-width="1.4"/>
+          <circle cx="320" cy="70" r="90" stroke="#ffffff" stroke-width="1.2"/>
+        </svg>
+
+        <div class="product-hero-top">
+          <span class="hero-badge" id="ui-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7" rx="1"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            <span id="ui-badge-text">Presente</span>
+          </span>
+        </div>
+
+        <div class="hero-center-mark" aria-hidden="true">
+          <!-- Emblema Geométrico YuvexPay -->
+          <svg width="68" height="68" viewBox="0 0 64 64" fill="none">
+            <path d="M14 14L32 34L50 14" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M32 34V52" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
+            <path d="M20 44H44" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.65"/>
+          </svg>
+        </div>
+
+        <div class="product-hero-bottom">
+          <h1 class="hero-product-title" id="ui-hero-title">Site Profissional Completo</h1>
+        </div>
+      </div>
+
+      <!-- Detalhamento de preço -->
+      <div class="summary-item-row">
+        <span class="summary-item-name" id="ui-item-name">Site Profissional Completo</span>
+        <span class="summary-item-price" id="ui-item-price">R$ 297,00</span>
+      </div>
+      <p class="summary-item-desc" id="ui-item-desc">
+        Site publicado com domínio, cardápio digital, botão direto do WhatsApp e destaque no Google
+      </p>
+
+      <button type="button" class="coupon-trigger" id="btn-toggle-coupon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
+        <span>Adicionar cupom de desconto</span>
+      </button>
+
+      <div class="coupon-box" id="coupon-box">
+        <input type="text" class="coupon-input" id="inp-coupon" placeholder="CÓDIGO DO CUPOM" maxlength="32">
+        <button type="button" class="coupon-apply-btn" id="btn-apply-coupon">Aplicar</button>
+      </div>
+
+      <div class="discount-row" id="discount-row">
+        <span id="discount-label">Cupom aplicado</span>
+        <span id="discount-value">- R$ 0,00</span>
+      </div>
+
+      <hr class="summary-divider">
+
+      <div class="summary-total-row">
+        <span class="summary-total-label">Total</span>
+        <span class="summary-total-value" id="ui-total-price">R$ 297,00</span>
+      </div>
+    </section>
+
+    <!-- COLUNA DIREITA: Dados do Comprador + Seletor Pix/Cartão/Boleto + Ação -->
+    <section class="col-payment" aria-label="Dados de pagamento">
+      <form id="checkout-form" novalidate>
+        <div class="field-group">
+          <label class="field-label" for="inp-email">
+            <span>E-mail</span>
+            <span class="field-hint">Para envio do comprovante</span>
+          </label>
+          <div class="input-wrap">
+            <input type="email" class="field-input" id="inp-email" placeholder="seu@email.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="inp-name">
+            <span>Nome completo</span>
+          </label>
+          <div class="input-wrap">
+            <input type="text" class="field-input" id="inp-name" placeholder="Seu nome ou razão social" autocomplete="name" required>
+          </div>
+        </div>
+
+        <div class="field-row-2">
+          <div class="field-group">
+            <label class="field-label" for="inp-doc">
+              <span>CPF / CNPJ</span>
+              <span class="field-hint" id="doc-status"></span>
+            </label>
+            <div class="input-wrap">
+              <input type="text" class="field-input" id="inp-doc" placeholder="000.000.000-00" inputmode="numeric" maxlength="18" required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="inp-phone">
+              <span>WhatsApp / Celular</span>
+            </label>
+            <div class="input-wrap">
+              <input type="tel" class="field-input" id="inp-phone" placeholder="(00) 00000-0000" inputmode="tel" maxlength="15">
+            </div>
+          </div>
+        </div>
+
+        <!-- Seletor de Pagamento igual à Imagem 2 -->
+        <div class="section-title">Pagamento</div>
+        <div class="methods-grid" role="radiogroup" aria-label="Método de pagamento">
+          <button type="button" class="method-btn" data-method="PIX" id="btn-method-pix">
+            <span class="method-icon">
+              <!-- Ícone Oficial Pix -->
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15.2 6.2a2.4 2.4 0 0 1 3.4 0l2.2 2.2a2.4 2.4 0 0 1 0 3.4l-2.2 2.2a2.4 2.4 0 0 1-3.4 0l-1.8-1.8a2 2 0 0 0-2.8 0l-1.8 1.8a2.4 2.4 0 0 1-3.4 0L3.2 11.8a2.4 2.4 0 0 1 0-3.4l2.2-2.2a2.4 2.4 0 0 1 3.4 0l1.8 1.8a2 2 0 0 0 2.8 0z"/>
+              </svg>
+            </span>
+            <span>Pix</span>
+            <span class="method-badge">Instantâneo</span>
+          </button>
+
+          <div class="methods-row-bottom">
+            <button type="button" class="method-btn" data-method="CARD" id="btn-method-card">
+              <span class="method-icon">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="14" x="2" y="5" rx="2"/>
+                  <line x1="2" x2="22" y1="10" y2="10"/>
+                </svg>
+              </span>
+              <span>Cartão</span>
+            </button>
+
+            <button type="button" class="method-btn active" data-method="BOLETO" id="btn-method-boleto">
+              <span class="method-icon">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round">
+                  <path d="M3 5v14"/><path d="M7 5v14"/><path d="M10 5v14"/><path d="M14 5v14"/><path d="M17 5v14"/><path d="M21 5v14"/>
+                </svg>
+              </span>
+              <span>Boleto</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PAINEL 1: PIX -->
+        <div class="method-panel" id="panel-PIX">
+          <div class="pix-box">
+            <div class="pix-status-pill" id="pix-status-pill">
+              <span class="pulse-dot"></span>
+              <span id="pix-status-text">Aprovação imediata 24h • QR Code e Copia e Cola</span>
+            </div>
+
+            <div class="pix-qr-wrap" id="pix-qr-wrap">
+              <!-- QR Code vetorial inicial / atualizado pela API YuvexPay -->
+              <svg viewBox="0 0 120 120" fill="none" id="pix-qr-placeholder">
+                <rect x="8" y="8" width="32" height="32" rx="4" stroke="#0d4a40" stroke-width="5"/>
+                <rect x="18" y="18" width="12" height="12" rx="2" fill="#188c79"/>
+                <rect x="80" y="8" width="32" height="32" rx="4" stroke="#0d4a40" stroke-width="5"/>
+                <rect x="90" y="18" width="12" height="12" rx="2" fill="#188c79"/>
+                <rect x="8" y="80" width="32" height="32" rx="4" stroke="#0d4a40" stroke-width="5"/>
+                <rect x="18" y="90" width="12" height="12" rx="2" fill="#188c79"/>
+                <rect x="50" y="12" width="8" height="8" fill="#0d4a40"/>
+                <rect x="62" y="20" width="8" height="16" fill="#0d4a40"/>
+                <rect x="48" y="46" width="24" height="24" rx="5" fill="#7ee2ce"/>
+                <path d="M56 58L60 62L66 54" stroke="#072b25" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="14" y="50" width="18" height="8" fill="#0d4a40"/>
+                <rect x="82" y="52" width="10" height="18" fill="#0d4a40"/>
+                <rect x="98" y="58" width="12" height="8" fill="#0d4a40"/>
+                <rect x="50" y="82" width="14" height="10" fill="#0d4a40"/>
+                <rect x="74" y="80" width="10" height="28" fill="#0d4a40"/>
+                <rect x="92" y="92" width="18" height="16" fill="#188c79"/>
+              </svg>
+            </div>
+
+            <div id="pix-copy-area" style="display:none">
+              <input type="text" class="pix-copy-input" id="inp-pix-code" readonly>
+              <button type="button" class="secondary-action-btn" id="btn-copy-pix" style="width:100%">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>Copiar código Pix Copia e Cola</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="perk-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Confirmação instantânea processada pela YuvexPay</span>
+          </div>
+        </div>
+
+        <!-- PAINEL 2: CARTÃO (Com os 3 Cartões YuvexPay da Imagem 1) -->
+        <div class="method-panel" id="panel-CARD">
+          <div class="cards-showcase-wrap">
+            <div class="cards-stack" id="cards-stack" data-front="mint">
+              <!-- Cartão 1: Edição Branca -->
+              <div class="yvx-card card-white" data-card="white" title="Clique para destacar o cartão White">
+                <svg class="yvx-card-lines" viewBox="0 0 250 155" fill="none">
+                  <path d="M135 -10 L215 80 L155 170" stroke="#cbdcd8" stroke-width="1.2"/>
+                  <path d="M-20 130 Q 90 70 260 120" stroke="#d5e4e0" stroke-width="1.2"/>
+                </svg>
+                <div class="yvx-card-top">
+                  <span class="yvx-card-brand">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#147a6b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l7 9 7-9"/><path d="M12 13v7"/></svg>
+                    <span>YuvexPay</span>
+                  </span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#647d78" stroke-width="2" stroke-linecap="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                </div>
+                <div class="yvx-card-chip-row">
+                  <div class="emv-chip"></div>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6c8580" stroke-width="2" stroke-linecap="round"><path d="M2 12a10 10 0 0 1 10-10"/><path d="M2 16a6 6 0 0 1 6-6"/><path d="M2 20a2 2 0 0 1 2-2"/></svg>
+                </div>
+                <div class="yvx-card-bottom">
+                  <div>
+                    <div class="yvx-card-num">•••• •••• •••• 7305</div>
+                    <div class="yvx-card-holder" data-holder-preview>TITULAR DO CARTÃO</div>
+                  </div>
+                  <div class="mc-circles"><span class="mc-circle left"></span><span class="mc-circle right"></span></div>
+                </div>
+              </div>
+
+              <!-- Cartão 2: Edição Mint/Aquamarine (Frente Principal na Imagem 1) -->
+              <div class="yvx-card card-mint" data-card="mint" title="Clique para destacar o cartão Mint">
+                <svg class="yvx-card-lines" viewBox="0 0 250 155" fill="none">
+                  <path d="M130 -15 L205 78 L145 165" stroke="rgba(255,255,255,0.26)" stroke-width="1.3"/>
+                  <path d="M165 -15 L240 78 L180 165" stroke="rgba(255,255,255,0.16)" stroke-width="1.1"/>
+                  <path d="M-20 125 C 70 65, 150 145, 265 85" stroke="rgba(255,255,255,0.22)" stroke-width="1.2"/>
+                </svg>
+                <div class="yvx-card-top">
+                  <span class="yvx-card-brand">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l7 9 7-9"/><path d="M12 13v7"/></svg>
+                    <span>YuvexPay</span>
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round"><path d="M8.5 8.5a5 5 0 0 1 7 7"/><path d="M5.5 5.5a9 9 0 0 1 13 13"/><circle cx="12" cy="12" r="1.5" fill="#fff"/></svg>
+                </div>
+                <div class="yvx-card-chip-row">
+                  <div class="emv-chip"></div>
+                </div>
+                <div class="yvx-card-bottom">
+                  <div>
+                    <div class="yvx-card-num">•••• •••• •••• 7305</div>
+                    <div class="yvx-card-holder" data-holder-preview>TITULAR DO CARTÃO</div>
+                  </div>
+                  <div class="mc-circles"><span class="mc-circle left"></span><span class="mc-circle right"></span></div>
+                </div>
+              </div>
+
+              <!-- Cartão 3: Edição Black Matte -->
+              <div class="yvx-card card-black" data-card="black" title="Clique para destacar o cartão Black">
+                <svg class="yvx-card-lines" viewBox="0 0 250 155" fill="none">
+                  <path d="M135 -10 L215 80 L155 170" stroke="rgba(126,226,206,0.18)" stroke-width="1.2"/>
+                  <path d="M-20 130 Q 90 70 260 120" stroke="rgba(255,255,255,0.10)" stroke-width="1.2"/>
+                </svg>
+                <div class="yvx-card-top">
+                  <span class="yvx-card-brand">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7ee2ce" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l7 9 7-9"/><path d="M12 13v7"/></svg>
+                    <span>YuvexPay</span>
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(126,226,206,0.8)" stroke-width="2" stroke-linecap="round"><path d="M8.5 8.5a5 5 0 0 1 7 7"/><path d="M5.5 5.5a9 9 0 0 1 13 13"/></svg>
+                </div>
+                <div class="yvx-card-chip-row">
+                  <div class="emv-chip"></div>
+                </div>
+                <div class="yvx-card-bottom">
+                  <div>
+                    <div class="yvx-card-num">•••• •••• •••• 7305</div>
+                    <div class="yvx-card-holder" data-holder-preview>TITULAR DO CARTÃO</div>
+                  </div>
+                  <div class="mc-circles"><span class="mc-circle left"></span><span class="mc-circle right"></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-edition-switcher">
+              <button type="button" class="edition-pill" data-select-card="white">White</button>
+              <button type="button" class="edition-pill active" data-select-card="mint">Mint Edition</button>
+              <button type="button" class="edition-pill" data-select-card="black">Black</button>
+            </div>
+
+            <p class="card-info-note">
+              Aceita <b>Cartão de Crédito (à vista)</b> e <b>Débito</b> com verificação 3D Secure integrada pela YuvexPay.
+            </p>
+          </div>
+
+          <div class="perk-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Proteção antifraude 3D Secure 2.0 • Liberação imediata</span>
+          </div>
+        </div>
+
+        <!-- PAINEL 3: BOLETO (Idêntico à Imagem 2) -->
+        <div class="method-panel active" id="panel-BOLETO">
+          <div class="boleto-card">
+            <div class="barcode-visual-box">
+              <!-- Código de barras vetorial nítido igual à Imagem 2 -->
+              <svg class="barcode-svg" viewBox="0 0 260 42" fill="#0d2622" aria-hidden="true">
+                <rect x="6" y="4" width="3" height="34"/><rect x="12" y="4" width="1.5" height="34"/><rect x="16" y="4" width="4" height="34"/>
+                <rect x="23" y="4" width="1.5" height="34"/><rect x="27" y="4" width="3" height="34"/><rect x="33" y="4" width="1.5" height="34"/>
+                <rect x="38" y="4" width="4.5" height="34"/><rect x="45" y="4" width="1.5" height="34"/><rect x="49" y="4" width="2.5" height="34"/>
+                <rect x="55" y="4" width="3.5" height="34"/><rect x="61" y="4" width="1.5" height="34"/><rect x="65" y="4" width="1.5" height="34"/>
+                <rect x="70" y="4" width="4" height="34"/><rect x="77" y="4" width="2" height="34"/><rect x="82" y="4" width="3.5" height="34"/>
+                <rect x="88" y="4" width="1.5" height="34"/><rect x="92" y="4" width="4.5" height="34"/><rect x="99" y="4" width="1.5" height="34"/>
+                <rect x="104" y="4" width="3" height="34"/><rect x="110" y="4" width="1.5" height="34"/><rect x="114" y="4" width="4" height="34"/>
+                <rect x="121" y="4" width="2" height="34"/><rect x="126" y="4" width="1.5" height="34"/><rect x="130" y="4" width="4.5" height="34"/>
+                <rect x="137" y="4" width="2" height="34"/><rect x="142" y="4" width="3.5" height="34"/><rect x="148" y="4" width="1.5" height="34"/>
+                <rect x="153" y="4" width="4" height="34"/><rect x="160" y="4" width="1.5" height="34"/><rect x="164" y="4" width="3" height="34"/>
+                <rect x="170" y="4" width="4.5" height="34"/><rect x="177" y="4" width="1.5" height="34"/><rect x="181" y="4" width="2.5" height="34"/>
+                <rect x="186" y="4" width="3.5" height="34"/><rect x="192" y="4" width="1.5" height="34"/><rect x="196" y="4" width="4" height="34"/>
+                <rect x="203" y="4" width="2" height="34"/><rect x="208" y="4" width="3" height="34"/><rect x="214" y="4" width="1.5" height="34"/>
+                <rect x="219" y="4" width="4.5" height="34"/><rect x="226" y="4" width="1.5" height="34"/><rect x="230" y="4" width="3" height="34"/>
+                <rect x="236" y="4" width="2" height="34"/><rect x="241" y="4" width="4" height="34"/><rect x="248" y="4" width="1.5" height="34"/>
+                <rect x="252" y="4" width="3" height="34"/>
+              </svg>
+            </div>
+            <div class="boleto-line" id="boleto-digitable-line">
+              34191.79001 01043.510047 91020.150008 4 97110000008900
+            </div>
+
+            <div class="boleto-actions" id="boleto-actions">
+              <button type="button" class="secondary-action-btn" id="btn-copy-boleto">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>Copiar linha</span>
+              </button>
+              <a class="secondary-action-btn" id="btn-download-boleto" href="#" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span>Baixar PDF</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="perk-line">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span id="ui-boleto-note">Vencimento em até 1 ano</span>
+          </div>
+        </div>
+
+        <div class="feedback-banner" id="feedback-banner" role="alert"></div>
+
+        <!-- Botão Principal Mint (Idêntico à Imagem 2) -->
+        <button type="submit" class="submit-btn" id="btn-submit">
+          <span id="btn-submit-label">Gerar Boleto • R$ 297,00</span>
+        </button>
+
+        <!-- Rodapé Processado pela YuvexPay (Idêntico à Imagem 2) -->
+        <div class="yuvex-footer">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Processado pela</span>
+          <a href="https://yuvexpay.com" target="_blank" rel="noopener" class="yuvex-footer-brand">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l7 9 7-9"/><path d="M12 13v7"/></svg>
+            <span>YuvexPay</span>
+          </a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>window.__CHECKOUT_CFG__ = {"store_name": "John Sites", "store_sub": "Sites Profissionais \u0026 Card\u00e1pio Digital", "product_name": "Site Profissional Completo", "product_sub": "Site no ar, card\u00e1pio digital, bot\u00e3o direto do WhatsApp e destaque no Google", "badge": "Presente", "amount": 297.0, "methods": ["PIX", "CARD", "BOLETO"], "coupon_code": "", "return_url": "", "completion_url": "", "expires_minutes": 60, "boleto_note": "Vencimento em at\u00e9 1 ano", "embed_key": false};</script>
+  <script>
+  (() => {
+    const CFG = Object.assign({
+      store_name: "John Sites",
+      store_sub: "Sites Profissionais & Cardápio Digital",
+      product_name: "Site Profissional Completo",
+      product_sub: "Site no ar, cardápio digital, botão direto do WhatsApp e destaque no Google",
+      badge: "Presente",
+      amount: 297.00,
+      methods: ["PIX", "CARD", "BOLETO"],
+      default_method: "BOLETO",
+      boleto_note: "Vencimento em até 1 ano",
+      expires_minutes: 60,
+      api_key: "",
+      api_proxy: "",
+      return_url: "",
+      completion_url: ""
+    }, window.__CHECKOUT_CFG__ || {});
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("loja") || params.get("store")) CFG.store_name = params.get("loja") || params.get("store");
+    if (params.get("subloja")) CFG.store_sub = params.get("subloja");
+    if (params.get("produto") || params.get("title") || params.get("empresa")) {
+      const emp = params.get("empresa");
+      CFG.product_name = params.get("produto") || params.get("title") || (emp ? `Site Profissional · ${emp}` : CFG.product_name);
+    }
+    if (params.get("descricao") || params.get("sub")) CFG.product_sub = params.get("descricao") || params.get("sub");
+    if (params.get("badge")) CFG.badge = params.get("badge");
+    if (params.get("valor") || params.get("amount") || params.get("price")) {
+      const rawVal = String(params.get("valor") || params.get("amount") || params.get("price")).replace(",", ".");
+      const parsed = parseFloat(rawVal);
+      if (!isNaN(parsed) && parsed > 0) CFG.amount = parsed;
+    }
+    if (params.get("metodo") || params.get("method")) {
+      const m = String(params.get("metodo") || params.get("method")).toUpperCase();
+      if (m === "PIX" || m === "CARTAO" || m === "CARD" || m === "BOLETO") {
+        CFG.default_method = (m === "CARTAO") ? "CARD" : m;
+      }
+    }
+    if (params.get("key")) CFG.api_key = params.get("key");
+    if (params.get("voltar") || params.get("return_url")) CFG.return_url = params.get("voltar") || params.get("return_url");
+
+    const brl = (v) => "R$ " + Number(v || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    let state = {
+      method: CFG.default_method || "BOLETO",
+      subtotal: Number(CFG.amount || 297),
+      discount: 0,
+      couponCode: params.get("cupom") || "",
+      loading: false,
+      payment: null,
+      pollTimer: null
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    // Preenche textos iniciais
+    $("ui-store-name").textContent = CFG.store_name;
+    $("ui-store-sub").textContent = CFG.store_sub;
+    $("ui-badge-text").textContent = CFG.badge;
+    $("ui-hero-title").textContent = CFG.product_name;
+    $("ui-item-name").textContent = CFG.product_name;
+    $("ui-item-desc").textContent = CFG.product_sub;
+    $("ui-boleto-note").textContent = CFG.boleto_note || "Vencimento em até 1 ano";
+    document.title = `${CFG.product_name} · Checkout YuvexPay`;
+
+    if (CFG.return_url) {
+      const back = $("back-link");
+      back.href = CFG.return_url;
+      back.style.visibility = "visible";
+    }
+
+    // Pré-preenchimento opcional via URL
+    if (params.get("email")) $("inp-email").value = params.get("email");
+    if (params.get("nome") || params.get("name")) $("inp-name").value = params.get("nome") || params.get("name");
+    if (params.get("doc") || params.get("cpf")) $("inp-doc").value = formatCpfCnpj(params.get("doc") || params.get("cpf"));
+    if (params.get("tel") || params.get("whats")) $("inp-phone").value = formatPhone(params.get("tel") || params.get("whats"));
+
+    function totalAmount() {
+      return Math.max(0, +(state.subtotal - state.discount).toFixed(2));
+    }
+
+    function updatePricesUI() {
+      $("ui-item-price").textContent = brl(state.subtotal);
+      const tot = totalAmount();
+      $("ui-total-price").textContent = brl(tot);
+      if (state.discount > 0) {
+        $("discount-row").classList.add("active");
+        $("discount-label").textContent = `Cupom (${state.couponCode})`;
+        $("discount-value").textContent = `- ${brl(state.discount)}`;
+      } else {
+        $("discount-row").classList.remove("active");
+      }
+      updateSubmitButtonUI();
+    }
+
+    function updateSubmitButtonUI() {
+      const btn = $("btn-submit");
+      const tot = brl(totalAmount());
+      if (state.loading) {
+        btn.disabled = true;
+        btn.innerHTML = `<span class="spinner"></span><span>Processando</span>`;
+        return;
+      }
+      btn.disabled = false;
+      if (state.method === "PIX") {
+        btn.innerHTML = `<span id="btn-submit-label">Gerar QR Code Pix • ${tot}</span>`;
+      } else if (state.method === "CARD") {
+        btn.innerHTML = `<span id="btn-submit-label">Pagar com Cartão • ${tot}</span>`;
+      } else {
+        btn.innerHTML = `<span id="btn-submit-label">Gerar Boleto • ${tot}</span>`;
+      }
+    }
+
+    function setMethod(m) {
+      state.method = m;
+      document.querySelectorAll(".method-btn").forEach((b) => {
+        b.classList.toggle("active", b.dataset.method === m);
+      });
+      ["PIX", "CARD", "BOLETO"].forEach((k) => {
+        const panel = $("panel-" + k);
+        if (panel) panel.classList.toggle("active", k === m);
+      });
+      hideFeedback();
+      updateSubmitButtonUI();
+    }
+
+    document.querySelectorAll(".method-btn").forEach((btn) => {
+      btn.addEventListener("click", () => setMethod(btn.dataset.method));
+    });
+
+    // Interatividade da pilha de 3 cartões YuvexPay (Imagem 1)
+    function selectCardEdition(edition) {
+      const stack = $("cards-stack");
+      if (stack) stack.setAttribute("data-front", edition);
+      document.querySelectorAll(".edition-pill").forEach((p) => {
+        p.classList.toggle("active", p.dataset.selectCard === edition);
+      });
+    }
+
+    document.querySelectorAll(".yvx-card").forEach((card) => {
+      card.addEventListener("click", () => selectCardEdition(card.dataset.card));
+    });
+    document.querySelectorAll(".edition-pill").forEach((pill) => {
+      pill.addEventListener("click", () => selectCardEdition(pill.dataset.selectCard));
+    });
+
+    // Atualiza o nome do titular nos 3 cartões em tempo real
+    $("inp-name").addEventListener("input", (e) => {
+      const val = (e.target.value || "").trim().toUpperCase() || "TITULAR DO CARTÃO";
+      document.querySelectorAll("[data-holder-preview]").forEach((el) => {
+        el.textContent = val;
+      });
+    });
+
+    // Máscara e validação de CPF / CNPJ
+    function cleanDigits(s) {
+      return String(s || "").replace(/\D/g, "");
+    }
+
+    function formatCpfCnpj(val) {
+      const d = cleanDigits(val).slice(0, 14);
+      if (d.length <= 11) {
+        return d
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+      }
+      return d
+        .replace(/^(\d{2})(\d)/, "$1.$2")
+        .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/\.(\d{3})(\d)/, ".$1/$2")
+        .replace(/(\d{4})(\d)/, "$1-$2");
+    }
+
+    function isValidCpfCnpj(val) {
+      const d = cleanDigits(val);
+      if (d.length === 11) {
+        if (/^(\d)\1{10}$/.test(d)) return false;
+        for (let t = 9; t < 11; t++) {
+          let sum = 0;
+          for (let c = 0; c < t; c++) sum += Number(d[c]) * ((t + 1) - c);
+          let dig = ((10 * sum) % 11) % 10;
+          if (Number(d[t]) !== dig) return false;
+        }
+        return true;
+      }
+      if (d.length === 14) {
+        if (/^(\d)\1{13}$/.test(d)) return false;
+        const calc = (base, weights) => {
+          let sum = 0;
+          for (let i = 0; i < weights.length; i++) sum += Number(base[i]) * weights[i];
+          const r = sum % 11;
+          return r < 2 ? 0 : 11 - r;
+        };
+        const d1 = calc(d, [5,4,3,2,9,8,7,6,5,4,3,2]);
+        const d2 = calc(d, [6,5,4,3,2,9,8,7,6,5,4,3,2]);
+        return Number(d[12]) === d1 && Number(d[13]) === d2;
+      }
+      return false;
+    }
+
+    function formatPhone(val) {
+      const d = cleanDigits(val).slice(0, 11);
+      if (d.length <= 2) return d;
+      if (d.length <= 6) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+      if (d.length <= 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+      return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+    }
+
+    $("inp-doc").addEventListener("input", (e) => {
+      e.target.value = formatCpfCnpj(e.target.value);
+      const d = cleanDigits(e.target.value);
+      const hint = $("doc-status");
+      if (d.length === 11 || d.length === 14) {
+        const ok = isValidCpfCnpj(d);
+        e.target.classList.toggle("valid", ok);
+        e.target.classList.toggle("invalid", !ok);
+        hint.textContent = ok ? (d.length === 11 ? "CPF válido ✓" : "CNPJ válido ✓") : "Documento inválido";
+        hint.style.color = ok ? "#15806d" : "#e5484d";
+      } else {
+        e.target.classList.remove("valid", "invalid");
+        hint.textContent = "";
+      }
+    });
+
+    $("inp-phone").addEventListener("input", (e) => {
+      e.target.value = formatPhone(e.target.value);
+    });
+
+    // Cupom de Desconto
+    $("btn-toggle-coupon").addEventListener("click", () => {
+      const box = $("coupon-box");
+      box.classList.toggle("open");
+      if (box.classList.contains("open")) $("inp-coupon").focus();
+    });
+
+    $("btn-apply-coupon").addEventListener("click", () => {
+      const code = ($("inp-coupon").value || "").trim().toUpperCase();
+      if (!code) return;
+      state.couponCode = code;
+      // Desconto visual imediato para cupons padrão ou enviado no POST /v1/payments
+      if (code === "FREE100" || code === "GRATIS") {
+        state.discount = state.subtotal;
+      } else if (code.endsWith("20")) {
+        state.discount = +(state.subtotal * 0.20).toFixed(2);
+      } else if (code.endsWith("10") || code === "DESCONTO10") {
+        state.discount = +(state.subtotal * 0.10).toFixed(2);
+      } else {
+        state.discount = +(state.subtotal * 0.05).toFixed(2);
+      }
+      updatePricesUI();
+      showFeedback(`Cupom ${code} aplicado ao pedido!`, "success");
+    });
+
+    function showFeedback(msg, kind = "error") {
+      const el = $("feedback-banner");
+      el.className = `feedback-banner ${kind}`;
+      el.textContent = msg;
+    }
+
+    function hideFeedback() {
+      const el = $("feedback-banner");
+      el.className = "feedback-banner";
+      el.textContent = "";
+    }
+
+    // Copiar código Pix e Boleto
+    $("btn-copy-pix").addEventListener("click", async () => {
+      const code = $("inp-pix-code").value;
+      if (!code) return;
+      try {
+        await navigator.clipboard.writeText(code);
+        showFeedback("Código Pix Copia e Cola copiado! Abra o app do seu banco para pagar.", "success");
+      } catch (_) {
+        $("inp-pix-code").select();
+        document.execCommand("copy");
+        showFeedback("Código Pix copiado!", "success");
+      }
+    });
+
+    $("btn-copy-boleto").addEventListener("click", async () => {
+      const line = ($("boleto-digitable-line").textContent || "").trim();
+      try {
+        await navigator.clipboard.writeText(line);
+        showFeedback("Linha digitável do boleto copiada!", "success");
+      } catch (_) {
+        showFeedback("Linha digitável selecionada!", "success");
+      }
+    });
+
+    // Polling de status do pagamento na YuvexPay
+    function startStatusPolling(paymentId, apiKey, useBackendProxy) {
+      if (state.pollTimer) clearInterval(state.pollTimer);
+      state.pollTimer = setInterval(async () => {
+        try {
+          let p = null;
+          if (useBackendProxy) {
+            const r = await fetch(`${useBackendProxy}/api/yuvexpay/public/payment/${encodeURIComponent(paymentId)}`);
+            if (r.ok) {
+              const j = await r.json();
+              p = j.payment || j;
+            }
+          } else if (apiKey) {
+            const r = await fetch(`https://api.yuvexpay.com/v1/payments/${encodeURIComponent(paymentId)}`, {
+              headers: { "Authorization": `Bearer ${apiKey}` }
+            });
+            if (r.ok) {
+              const j = await r.json();
+              p = j.payment || j;
+            }
+          }
+          if (p && (p.status === "PAID" || p.status === "CONFIRMED" || p.status === "FREE")) {
+            clearInterval(state.pollTimer);
+            $("pix-status-text").textContent = "Pagamento confirmado! Obrigado pela compra ✓";
+            showFeedback("Pagamento aprovado com sucesso! Seu pedido já está confirmado.", "success");
+            if (CFG.completion_url) {
+              setTimeout(() => { window.location.href = CFG.completion_url; }, 2500);
+            }
+          }
+        } catch (_) {}
+      }, 4500);
+    }
+
+    // Criação do pagamento via Servidor Radar (/api/yuvexpay/public/pay) ou Direto na API YuvexPay (https://api.yuvexpay.com/v1/payments)
+    async function createYuvexPayment(customer) {
+      const amount = totalAmount();
+      const payload = {
+        amount: amount,
+        method: state.method,
+        methods: [state.method],
+        currency: "BRL",
+        mode: state.method === "CARD" ? "hosted" : "headless",
+        description: `${CFG.product_name} - ${CFG.store_name}`.slice(0, 500),
+        externalId: `order-${Date.now()}`,
+        expiresInMinutes: Number(CFG.expires_minutes || 60),
+        customer: customer
+      };
+      if (state.couponCode) payload.couponCode = state.couponCode;
+      if (CFG.return_url) payload.returnUrl = CFG.return_url;
+      if (CFG.completion_url) payload.completionUrl = CFG.completion_url;
+
+      // 1. Tenta proxy local do app Radar se disponível (mesma origem ou 127.0.0.1:8781)
+      const localBases = [];
+      if (CFG.api_proxy) localBases.push(CFG.api_proxy.replace(/\/$/, ""));
+      if (window.location.port === "8781") localBases.push("");
+      if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") {
+        localBases.push("http://127.0.0.1:8781");
+      }
+
+      for (const base of localBases) {
+        try {
+          const resp = await fetch(`${base}/api/yuvexpay/public/pay`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await resp.json();
+          if (resp.ok && data && data.payment) {
+            return { ...data, proxyBase: base };
+          }
+          if (data && data.error && data.code !== "MISSING_API_KEY") {
+            throw new Error(data.error);
+          }
+        } catch (err) {
+          if (err.message && !err.message.includes("Failed to fetch") && !err.message.includes("NetworkError")) {
+            throw err;
+          }
+        }
+      }
+
+      // 2. Se tiver api_key configurada no checkout (ex: GitHub Pages com chave restrita payments:write)
+      if (CFG.api_key) {
+        const idem = `idem-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+        const apiBody = {
+          amount: payload.amount,
+          methods: [state.method],
+          currency: "BRL",
+          mode: state.method === "CARD" ? "hosted" : "headless",
+          description: payload.description,
+          externalId: payload.externalId,
+          expiresInMinutes: payload.expiresInMinutes,
+          customer: customer
+        };
+        if (state.couponCode) apiBody.couponCode = state.couponCode;
+        if (state.method === "CARD") {
+          if (CFG.return_url) apiBody.returnUrl = CFG.return_url;
+          if (CFG.completion_url) apiBody.completionUrl = CFG.completion_url;
+        }
+        const resp = await fetch("https://api.yuvexpay.com/v1/payments", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${CFG.api_key}`,
+            "Content-Type": "application/json",
+            "X-Idempotency-Key": idem
+          },
+          body: JSON.stringify(apiBody)
+        });
+        const data = await resp.json();
+        if (!resp.ok) {
+          const msg = (data && data.error && data.error.message) || data.message || "Não foi possível processar na YuvexPay.";
+          throw new Error(msg);
+        }
+        return { payment: data.payment || data, checkoutUrl: (data.payment && data.payment.checkoutUrl) || data.checkoutUrl || "" };
+      }
+
+      // 3. Modo Demonstração Interativo (quando ainda não há chave configurada)
+      await new Promise((r) => setTimeout(r, 950));
+      const cleanName = (customer.name || "CLIENTE").toUpperCase().slice(0, 25);
+      const pixPayload = `00020126580014BR.GOV.BCB.PIX0136yuvexpay-${Date.now()}5204000053039865406${amount.toFixed(2)}5802BR5913${cleanName}6009SAO PAULO62070503***6304ABCD`;
+      return {
+        demo: true,
+        payment: {
+          id: `demo-${Date.now()}`,
+          txId: `PAY${Math.random().toString(16).slice(2, 18).toUpperCase()}`,
+          amount: amount,
+          status: "NEW",
+          paymentMethod: state.method,
+          methodData: {
+            type: state.method,
+            pixCopyPaste: pixPayload,
+            digitableLine: "34191.79001 01043.510047 91020.150008 4 971100000" + String(Math.round(amount * 100)).padStart(5, "0")
+          }
+        }
+      };
+    }
+
+    $("checkout-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideFeedback();
+
+      const email = ($("inp-email").value || "").trim();
+      const name = ($("inp-name").value || "").trim();
+      const doc = cleanDigits($("inp-doc").value);
+      const phone = cleanDigits($("inp-phone").value);
+
+      if (!email || !email.includes("@")) {
+        $("inp-email").focus();
+        return showFeedback("Informe um e-mail válido para receber o comprovante.");
+      }
+      if (!name || name.length < 2) {
+        $("inp-name").focus();
+        return showFeedback("Informe seu nome completo ou razão social.");
+      }
+      if (!isValidCpfCnpj(doc)) {
+        $("inp-doc").focus();
+        return showFeedback("Informe um CPF (11 dígitos) ou CNPJ (14 dígitos) válido.");
+      }
+
+      state.loading = true;
+      updateSubmitButtonUI();
+
+      try {
+        const customer = {
+          name: name,
+          email: email,
+          document: doc,
+          phone: phone ? (phone.startsWith("55") ? `+${phone}` : `+55${phone}`) : undefined
+        };
+
+        const res = await createYuvexPayment(customer);
+        const payment = res.payment || {};
+        state.payment = payment;
+        const md = payment.methodData || {};
+
+        if (state.method === "CARD") {
+          const checkoutUrl = res.checkoutUrl || payment.checkoutUrl;
+          if (checkoutUrl) {
+            const sep = checkoutUrl.includes("?") ? "&" : "?";
+            window.location.href = checkoutUrl.includes("skip_customer=") ? checkoutUrl : `${checkoutUrl}${sep}skip_customer=1`;
+            return;
+          }
+          showFeedback("Sessão de cartão criada com segurança! Conclua a autenticação 3D Secure.", "success");
+        } else if (state.method === "PIX") {
+          if (md.qrCodeBase64) {
+            const src = md.qrCodeBase64.startsWith("data:") ? md.qrCodeBase64 : `data:image/png;base64,${md.qrCodeBase64}`;
+            $("pix-qr-wrap").innerHTML = `<img src="${src}" alt="QR Code Pix YuvexPay">`;
+          }
+          if (md.pixCopyPaste) {
+            $("inp-pix-code").value = md.pixCopyPaste;
+            $("pix-copy-area").style.display = "block";
+          }
+          $("pix-status-text").textContent = "QR Code gerado! Escaneie ou use o Pix Copia e Cola";
+          showFeedback("QR Code Pix gerado com sucesso! Aguardando confirmação do pagamento...", "success");
+          if (!res.demo && payment.id) {
+            startStatusPolling(payment.id, CFG.api_key, res.proxyBase);
+          }
+        } else if (state.method === "BOLETO") {
+          const line = md.digitableLine || md.barcode || $("boleto-digitable-line").textContent.trim();
+          $("boleto-digitable-line").textContent = line;
+          $("boleto-actions").classList.add("visible");
+          const dlBtn = $("btn-download-boleto");
+          if (res.proxyBase !== undefined && !res.demo && payment.id) {
+            dlBtn.href = `${res.proxyBase}/api/yuvexpay/public/boleto/${encodeURIComponent(payment.id)}`;
+            dlBtn.style.display = "inline-flex";
+          } else if (md.boletoUrl || md.pdfUrl) {
+            dlBtn.href = md.boletoUrl || md.pdfUrl;
+            dlBtn.style.display = "inline-flex";
+          } else {
+            dlBtn.style.display = "none";
+          }
+          showFeedback("Boleto registrado com sucesso! Copie a linha digitável abaixo para pagar.", "success");
+        }
+      } catch (err) {
+        showFeedback(err.message || "Erro ao processar pagamento. Confira os dados e tente novamente.", "error");
+      } finally {
+        state.loading = false;
+        updateSubmitButtonUI();
+      }
+    });
+
+    setMethod(state.method);
+    updatePricesUI();
+  })();
+  </script>
+</body>
+</html>
