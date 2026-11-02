@@ -1106,10 +1106,10 @@
           </div>
         </div>
 
-        <!-- Seletor de Pagamento igual à Imagem 2 -->
+        <!-- Seletor de Pagamento: Somente Pix -->
         <div class="section-title">Pagamento</div>
         <div class="methods-grid" role="radiogroup" aria-label="Método de pagamento">
-          <button type="button" class="method-btn" data-method="PIX" id="btn-method-pix">
+          <button type="button" class="method-btn active" data-method="PIX" id="btn-method-pix">
             <span class="method-icon">
               <!-- Ícone Oficial Pix -->
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1119,31 +1119,10 @@
             <span>Pix</span>
             <span class="method-badge">Instantâneo</span>
           </button>
-
-          <div class="methods-row-bottom">
-            <button type="button" class="method-btn" data-method="CARD" id="btn-method-card">
-              <span class="method-icon">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="20" height="14" x="2" y="5" rx="2"/>
-                  <line x1="2" x2="22" y1="10" y2="10"/>
-                </svg>
-              </span>
-              <span>Cartão</span>
-            </button>
-
-            <button type="button" class="method-btn active" data-method="BOLETO" id="btn-method-boleto">
-              <span class="method-icon">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round">
-                  <path d="M3 5v14"/><path d="M7 5v14"/><path d="M10 5v14"/><path d="M14 5v14"/><path d="M17 5v14"/><path d="M21 5v14"/>
-                </svg>
-              </span>
-              <span>Boleto</span>
-            </button>
-          </div>
         </div>
 
-        <!-- PAINEL 1: PIX -->
-        <div class="method-panel" id="panel-PIX">
+        <!-- PAINEL PIX -->
+        <div class="method-panel active" id="panel-PIX">
           <div class="pix-box">
             <div class="pix-status-pill" id="pix-status-pill">
               <span class="pulse-dot"></span>
@@ -1183,175 +1162,29 @@
 
           <div class="perk-line">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Confirmação instantânea processada pela YuvexPay</span>
-          </div>
-        </div>
-
-        <!-- PAINEL 2: CARTÃO (Com os 3 Cartões YuvexPay da Imagem 1) -->
-        <div class="method-panel" id="panel-CARD">
-          <div class="cards-showcase-wrap">
-            <div class="cards-stack" id="cards-stack" data-front="mint">
-              <!-- Cartão 1: Edição Branca -->
-              <div class="yvx-card card-white" data-card="white" title="Clique para destacar o cartão White">
-                <svg class="yvx-card-lines" viewBox="0 0 250 155" fill="none">
-                  <path d="M135 -10 L215 80 L155 170" stroke="#cbdcd8" stroke-width="1.2"/>
-                  <path d="M-20 130 Q 90 70 260 120" stroke="#d5e4e0" stroke-width="1.2"/>
-                </svg>
-                <div class="yvx-card-top">
-                  <span class="yvx-card-brand">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#147a6b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l7 9 7-9"/><path d="M12 13v7"/></svg>
-                    <span>YuvexPay</span>
-                  </span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#647d78" stroke-width="2" stroke-linecap="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-                </div>
-                <div class="yvx-card-chip-row">
-                  <div class="emv-chip"></div>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6c8580" stroke-width="2" stroke-linecap="round"><path d="M2 12a10 10 0 0 1 10-10"/><path d="M2 16a6 6 0 0 1 6-6"/><path d="M2 20a2 2 0 0 1 2-2"/></svg>
-                </div>
-                <div class="yvx-card-bottom">
-                  <div>
-                    <div class="yvx-card-num">•••• •••• •••• 7305</div>
-                    <div class="yvx-card-holder" data-holder-preview>TITULAR DO CARTÃO</div>
-                  </div>
-                  <div class="mc-circles"><span class="mc-circle left"></span><span class="mc-circle right"></span></div>
-                </div>
-              </div>
-
-              <!-- Cartão 2: Edição Mint/Aquamarine (Frente Principal na Imagem 1) -->
-              <div class="yvx-card card-mint" data-card="mint" title="Clique para destacar o cartão Mint">
-                <svg class="yvx-card-lines" viewBox="0 0 250 155" fill="none">
-                  <path d="M130 -15 L205 78 L145 165" stroke="rgba(255,255,255,0.26)" stroke-width="1.3"/>
-                  <path d="M165 -15 L240 78 L180 165" stroke="rgba(255,255,255,0.16)" stroke-width="1.1"/>
-                  <path d="M-20 125 C 70 65, 150 145, 265 85" stroke="rgba(255,255,255,0.22)" stroke-width="1.2"/>
-                </svg>
-                <div class="yvx-card-top">
-                  <span class="yvx-card-brand">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l7 9 7-9"/><path d="M12 13v7"/></svg>
-                    <span>YuvexPay</span>
-                  </span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2" stroke-linecap="round"><path d="M8.5 8.5a5 5 0 0 1 7 7"/><path d="M5.5 5.5a9 9 0 0 1 13 13"/><circle cx="12" cy="12" r="1.5" fill="#fff"/></svg>
-                </div>
-                <div class="yvx-card-chip-row">
-                  <div class="emv-chip"></div>
-                </div>
-                <div class="yvx-card-bottom">
-                  <div>
-                    <div class="yvx-card-num">•••• •••• •••• 7305</div>
-                    <div class="yvx-card-holder" data-holder-preview>TITULAR DO CARTÃO</div>
-                  </div>
-                  <div class="mc-circles"><span class="mc-circle left"></span><span class="mc-circle right"></span></div>
-                </div>
-              </div>
-
-              <!-- Cartão 3: Edição Black Matte -->
-              <div class="yvx-card card-black" data-card="black" title="Clique para destacar o cartão Black">
-                <svg class="yvx-card-lines" viewBox="0 0 250 155" fill="none">
-                  <path d="M135 -10 L215 80 L155 170" stroke="rgba(126,226,206,0.18)" stroke-width="1.2"/>
-                  <path d="M-20 130 Q 90 70 260 120" stroke="rgba(255,255,255,0.10)" stroke-width="1.2"/>
-                </svg>
-                <div class="yvx-card-top">
-                  <span class="yvx-card-brand">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7ee2ce" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l7 9 7-9"/><path d="M12 13v7"/></svg>
-                    <span>YuvexPay</span>
-                  </span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(126,226,206,0.8)" stroke-width="2" stroke-linecap="round"><path d="M8.5 8.5a5 5 0 0 1 7 7"/><path d="M5.5 5.5a9 9 0 0 1 13 13"/></svg>
-                </div>
-                <div class="yvx-card-chip-row">
-                  <div class="emv-chip"></div>
-                </div>
-                <div class="yvx-card-bottom">
-                  <div>
-                    <div class="yvx-card-num">•••• •••• •••• 7305</div>
-                    <div class="yvx-card-holder" data-holder-preview>TITULAR DO CARTÃO</div>
-                  </div>
-                  <div class="mc-circles"><span class="mc-circle left"></span><span class="mc-circle right"></span></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-edition-switcher">
-              <button type="button" class="edition-pill" data-select-card="white">White</button>
-              <button type="button" class="edition-pill active" data-select-card="mint">Mint Edition</button>
-              <button type="button" class="edition-pill" data-select-card="black">Black</button>
-            </div>
-
-            <p class="card-info-note">
-              Aceita <b>Cartão de Crédito (à vista)</b> e <b>Débito</b> com verificação 3D Secure integrada pela YuvexPay.
-            </p>
-          </div>
-
-          <div class="perk-line">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Proteção antifraude 3D Secure 2.0 • Liberação imediata</span>
-          </div>
-        </div>
-
-        <!-- PAINEL 3: BOLETO (Idêntico à Imagem 2) -->
-        <div class="method-panel active" id="panel-BOLETO">
-          <div class="boleto-card">
-            <div class="barcode-visual-box">
-              <!-- Código de barras vetorial nítido igual à Imagem 2 -->
-              <svg class="barcode-svg" viewBox="0 0 260 42" fill="#0d2622" aria-hidden="true">
-                <rect x="6" y="4" width="3" height="34"/><rect x="12" y="4" width="1.5" height="34"/><rect x="16" y="4" width="4" height="34"/>
-                <rect x="23" y="4" width="1.5" height="34"/><rect x="27" y="4" width="3" height="34"/><rect x="33" y="4" width="1.5" height="34"/>
-                <rect x="38" y="4" width="4.5" height="34"/><rect x="45" y="4" width="1.5" height="34"/><rect x="49" y="4" width="2.5" height="34"/>
-                <rect x="55" y="4" width="3.5" height="34"/><rect x="61" y="4" width="1.5" height="34"/><rect x="65" y="4" width="1.5" height="34"/>
-                <rect x="70" y="4" width="4" height="34"/><rect x="77" y="4" width="2" height="34"/><rect x="82" y="4" width="3.5" height="34"/>
-                <rect x="88" y="4" width="1.5" height="34"/><rect x="92" y="4" width="4.5" height="34"/><rect x="99" y="4" width="1.5" height="34"/>
-                <rect x="104" y="4" width="3" height="34"/><rect x="110" y="4" width="1.5" height="34"/><rect x="114" y="4" width="4" height="34"/>
-                <rect x="121" y="4" width="2" height="34"/><rect x="126" y="4" width="1.5" height="34"/><rect x="130" y="4" width="4.5" height="34"/>
-                <rect x="137" y="4" width="2" height="34"/><rect x="142" y="4" width="3.5" height="34"/><rect x="148" y="4" width="1.5" height="34"/>
-                <rect x="153" y="4" width="4" height="34"/><rect x="160" y="4" width="1.5" height="34"/><rect x="164" y="4" width="3" height="34"/>
-                <rect x="170" y="4" width="4.5" height="34"/><rect x="177" y="4" width="1.5" height="34"/><rect x="181" y="4" width="2.5" height="34"/>
-                <rect x="186" y="4" width="3.5" height="34"/><rect x="192" y="4" width="1.5" height="34"/><rect x="196" y="4" width="4" height="34"/>
-                <rect x="203" y="4" width="2" height="34"/><rect x="208" y="4" width="3" height="34"/><rect x="214" y="4" width="1.5" height="34"/>
-                <rect x="219" y="4" width="4.5" height="34"/><rect x="226" y="4" width="1.5" height="34"/><rect x="230" y="4" width="3" height="34"/>
-                <rect x="236" y="4" width="2" height="34"/><rect x="241" y="4" width="4" height="34"/><rect x="248" y="4" width="1.5" height="34"/>
-                <rect x="252" y="4" width="3" height="34"/>
-              </svg>
-            </div>
-            <div class="boleto-line" id="boleto-digitable-line">
-              34191.79001 01043.510047 91020.150008 4 97110000059700
-            </div>
-
-            <div class="boleto-actions" id="boleto-actions">
-              <button type="button" class="secondary-action-btn" id="btn-copy-boleto">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                <span>Copiar linha</span>
-              </button>
-              <a class="secondary-action-btn" id="btn-download-boleto" href="#" target="_blank" rel="noopener">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                <span>Baixar PDF</span>
-              </a>
-            </div>
-          </div>
-
-          <div class="perk-line">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            <span id="ui-boleto-note">Vencimento em até 1 ano</span>
+            <span>Confirmação instantânea via Pix</span>
           </div>
         </div>
 
         <div class="feedback-banner" id="feedback-banner" role="alert"></div>
 
-        <!-- Botão Principal Mint (Idêntico à Imagem 2) -->
+        <!-- Botão Principal Mint -->
         <button type="submit" class="submit-btn" id="btn-submit">
-          <span id="btn-submit-label">Gerar Boleto • R$ 597,00</span>
+          <span id="btn-submit-label">Gerar QR Code Pix • R$ 597,00</span>
         </button>
       </form>
     </section>
   </main>
 
-  <script>window.__CHECKOUT_CFG__ = {"product_name": "Site Profissional Completo", "product_sub": "Site no ar, card\u00e1pio digital, bot\u00e3o direto do WhatsApp e destaque no Google", "amount": 597.0, "methods": ["PIX", "CARD", "BOLETO"], "return_url": "", "completion_url": "", "expires_minutes": 60, "boleto_note": "Vencimento em at\u00e9 1 ano", "embed_key": false, "badge": "Presente", "coupon_code": ""};</script>
+  <script>window.__CHECKOUT_CFG__ = {"product_name": "Site Profissional Completo", "product_sub": "Site no ar, card\u00e1pio digital, bot\u00e3o direto do WhatsApp e destaque no Google", "amount": 597.0, "methods": ["PIX"], "return_url": "", "completion_url": "", "expires_minutes": 60, "embed_key": false, "boleto_note": "Vencimento em at\u00e9 1 ano", "badge": "Presente", "coupon_code": ""};</script>
   <script>
   (() => {
     const CFG = Object.assign({
       product_name: "Site Profissional Completo",
       product_sub: "Site no ar, cardápio digital, botão direto do WhatsApp e destaque no Google",
       amount: 597.00,
-      methods: ["PIX", "CARD", "BOLETO"],
-      default_method: "BOLETO",
-      boleto_note: "Vencimento em até 1 ano",
+      methods: ["PIX"],
+      default_method: "PIX",
       expires_minutes: 60,
       api_key: "",
       api_proxy: "",
@@ -1370,19 +1203,13 @@
       const parsed = parseFloat(rawVal);
       if (!isNaN(parsed) && parsed > 0) CFG.amount = parsed;
     }
-    if (params.get("metodo") || params.get("method")) {
-      const m = String(params.get("metodo") || params.get("method")).toUpperCase();
-      if (m === "PIX" || m === "CARTAO" || m === "CARD" || m === "BOLETO") {
-        CFG.default_method = (m === "CARTAO") ? "CARD" : m;
-      }
-    }
     if (params.get("key")) CFG.api_key = params.get("key");
     if (params.get("voltar") || params.get("return_url")) CFG.return_url = params.get("voltar") || params.get("return_url");
 
     const brl = (v) => "R$ " + Number(v || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     let state = {
-      method: CFG.default_method || "BOLETO",
+      method: "PIX",
       subtotal: Number(CFG.amount || 597),
       loading: false,
       payment: null,
@@ -1394,7 +1221,6 @@
     // Preenche textos iniciais
     $("ui-item-name").textContent = CFG.product_name;
     $("ui-item-desc").textContent = CFG.product_sub;
-    $("ui-boleto-note").textContent = CFG.boleto_note || "Vencimento em até 1 ano";
     document.title = `${CFG.product_name} · Checkout YuvexPay`;
 
     // Pré-preenchimento opcional via URL
@@ -1423,55 +1249,8 @@
         return;
       }
       btn.disabled = false;
-      if (state.method === "PIX") {
-        btn.innerHTML = `<span id="btn-submit-label">Gerar QR Code Pix • ${tot}</span>`;
-      } else if (state.method === "CARD") {
-        btn.innerHTML = `<span id="btn-submit-label">Pagar com Cartão • ${tot}</span>`;
-      } else {
-        btn.innerHTML = `<span id="btn-submit-label">Gerar Boleto • ${tot}</span>`;
-      }
+      btn.innerHTML = `<span id="btn-submit-label">Gerar QR Code Pix • ${tot}</span>`;
     }
-
-    function setMethod(m) {
-      state.method = m;
-      document.querySelectorAll(".method-btn").forEach((b) => {
-        b.classList.toggle("active", b.dataset.method === m);
-      });
-      ["PIX", "CARD", "BOLETO"].forEach((k) => {
-        const panel = $("panel-" + k);
-        if (panel) panel.classList.toggle("active", k === m);
-      });
-      hideFeedback();
-      updateSubmitButtonUI();
-    }
-
-    document.querySelectorAll(".method-btn").forEach((btn) => {
-      btn.addEventListener("click", () => setMethod(btn.dataset.method));
-    });
-
-    // Interatividade da pilha de 3 cartões YuvexPay (Imagem 1)
-    function selectCardEdition(edition) {
-      const stack = $("cards-stack");
-      if (stack) stack.setAttribute("data-front", edition);
-      document.querySelectorAll(".edition-pill").forEach((p) => {
-        p.classList.toggle("active", p.dataset.selectCard === edition);
-      });
-    }
-
-    document.querySelectorAll(".yvx-card").forEach((card) => {
-      card.addEventListener("click", () => selectCardEdition(card.dataset.card));
-    });
-    document.querySelectorAll(".edition-pill").forEach((pill) => {
-      pill.addEventListener("click", () => selectCardEdition(pill.dataset.selectCard));
-    });
-
-    // Atualiza o nome do titular nos 3 cartões em tempo real
-    $("inp-name").addEventListener("input", (e) => {
-      const val = (e.target.value || "").trim().toUpperCase() || "TITULAR DO CARTÃO";
-      document.querySelectorAll("[data-holder-preview]").forEach((el) => {
-        el.textContent = val;
-      });
-    });
 
     // Máscara e validação de CPF / CNPJ
     function cleanDigits(s) {
@@ -1560,7 +1339,7 @@
       el.textContent = "";
     }
 
-    // Copiar código Pix e Boleto
+    // Copiar código Pix
     $("btn-copy-pix").addEventListener("click", async () => {
       const code = $("inp-pix-code").value;
       if (!code) return;
@@ -1571,16 +1350,6 @@
         $("inp-pix-code").select();
         document.execCommand("copy");
         showFeedback("Código Pix copiado!", "success");
-      }
-    });
-
-    $("btn-copy-boleto").addEventListener("click", async () => {
-      const line = ($("boleto-digitable-line").textContent || "").trim();
-      try {
-        await navigator.clipboard.writeText(line);
-        showFeedback("Linha digitável do boleto copiada!", "success");
-      } catch (_) {
-        showFeedback("Linha digitável selecionada!", "success");
       }
     });
 
@@ -1617,15 +1386,15 @@
       }, 4500);
     }
 
-    // Criação do pagamento via Servidor Radar (/api/yuvexpay/public/pay) ou Direto na API YuvexPay (https://api.yuvexpay.com/v1/payments)
+    // Criação do pagamento Pix via Servidor Radar (/api/yuvexpay/public/pay) ou Direto na API YuvexPay (https://api.yuvexpay.com/v1/payments)
     async function createYuvexPayment(customer) {
       const amount = totalAmount();
       const payload = {
         amount: amount,
-        method: state.method,
-        methods: [state.method],
+        method: "PIX",
+        methods: ["PIX"],
         currency: "BRL",
-        mode: state.method === "CARD" ? "hosted" : "headless",
+        mode: "headless",
         description: String(CFG.product_name || "Site Profissional Completo").slice(0, 500),
         externalId: `order-${Date.now()}`,
         expiresInMinutes: Number(CFG.expires_minutes || 60),
@@ -1668,18 +1437,14 @@
         const idem = `idem-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
         const apiBody = {
           amount: payload.amount,
-          methods: [state.method],
+          methods: ["PIX"],
           currency: "BRL",
-          mode: state.method === "CARD" ? "hosted" : "headless",
+          mode: "headless",
           description: payload.description,
           externalId: payload.externalId,
           expiresInMinutes: payload.expiresInMinutes,
           customer: customer
         };
-        if (state.method === "CARD") {
-          if (CFG.return_url) apiBody.returnUrl = CFG.return_url;
-          if (CFG.completion_url) apiBody.completionUrl = CFG.completion_url;
-        }
         const resp = await fetch("https://api.yuvexpay.com/v1/payments", {
           method: "POST",
           headers: {
@@ -1694,7 +1459,7 @@
           const msg = (data && data.error && data.error.message) || data.message || "Não foi possível processar na YuvexPay.";
           throw new Error(msg);
         }
-        return { payment: data.payment || data, checkoutUrl: (data.payment && data.payment.checkoutUrl) || data.checkoutUrl || "" };
+        return { payment: data.payment || data };
       }
 
       // 3. Modo Demonstração Interativo (quando ainda não há chave configurada)
@@ -1708,11 +1473,10 @@
           txId: `PAY${Math.random().toString(16).slice(2, 18).toUpperCase()}`,
           amount: amount,
           status: "NEW",
-          paymentMethod: state.method,
+          paymentMethod: "PIX",
           methodData: {
-            type: state.method,
-            pixCopyPaste: pixPayload,
-            digitableLine: "34191.79001 01043.510047 91020.150008 4 971100000" + String(Math.round(amount * 100)).padStart(5, "0")
+            type: "PIX",
+            pixCopyPaste: pixPayload
           }
         }
       };
@@ -1756,43 +1520,18 @@
         state.payment = payment;
         const md = payment.methodData || {};
 
-        if (state.method === "CARD") {
-          const checkoutUrl = res.checkoutUrl || payment.checkoutUrl;
-          if (checkoutUrl) {
-            const sep = checkoutUrl.includes("?") ? "&" : "?";
-            window.location.href = checkoutUrl.includes("skip_customer=") ? checkoutUrl : `${checkoutUrl}${sep}skip_customer=1`;
-            return;
-          }
-          showFeedback("Sessão de cartão criada com segurança! Conclua a autenticação 3D Secure.", "success");
-        } else if (state.method === "PIX") {
-          if (md.qrCodeBase64) {
-            const src = md.qrCodeBase64.startsWith("data:") ? md.qrCodeBase64 : `data:image/png;base64,${md.qrCodeBase64}`;
-            $("pix-qr-wrap").innerHTML = `<img src="${src}" alt="QR Code Pix YuvexPay">`;
-          }
-          if (md.pixCopyPaste) {
-            $("inp-pix-code").value = md.pixCopyPaste;
-            $("pix-copy-area").style.display = "block";
-          }
-          $("pix-status-text").textContent = "QR Code gerado! Escaneie ou use o Pix Copia e Cola";
-          showFeedback("QR Code Pix gerado com sucesso! Aguardando confirmação do pagamento...", "success");
-          if (!res.demo && payment.id) {
-            startStatusPolling(payment.id, CFG.api_key, res.proxyBase);
-          }
-        } else if (state.method === "BOLETO") {
-          const line = md.digitableLine || md.barcode || $("boleto-digitable-line").textContent.trim();
-          $("boleto-digitable-line").textContent = line;
-          $("boleto-actions").classList.add("visible");
-          const dlBtn = $("btn-download-boleto");
-          if (res.proxyBase !== undefined && !res.demo && payment.id) {
-            dlBtn.href = `${res.proxyBase}/api/yuvexpay/public/boleto/${encodeURIComponent(payment.id)}`;
-            dlBtn.style.display = "inline-flex";
-          } else if (md.boletoUrl || md.pdfUrl) {
-            dlBtn.href = md.boletoUrl || md.pdfUrl;
-            dlBtn.style.display = "inline-flex";
-          } else {
-            dlBtn.style.display = "none";
-          }
-          showFeedback("Boleto registrado com sucesso! Copie a linha digitável abaixo para pagar.", "success");
+        if (md.qrCodeBase64) {
+          const src = md.qrCodeBase64.startsWith("data:") ? md.qrCodeBase64 : `data:image/png;base64,${md.qrCodeBase64}`;
+          $("pix-qr-wrap").innerHTML = `<img src="${src}" alt="QR Code Pix YuvexPay">`;
+        }
+        if (md.pixCopyPaste) {
+          $("inp-pix-code").value = md.pixCopyPaste;
+          $("pix-copy-area").style.display = "block";
+        }
+        $("pix-status-text").textContent = "QR Code gerado! Escaneie ou use o Pix Copia e Cola";
+        showFeedback("QR Code Pix gerado com sucesso! Aguardando confirmação do pagamento...", "success");
+        if (!res.demo && payment.id) {
+          startStatusPolling(payment.id, CFG.api_key, res.proxyBase);
         }
       } catch (err) {
         showFeedback(err.message || "Erro ao processar pagamento. Confira os dados e tente novamente.", "error");
@@ -1802,7 +1541,6 @@
       }
     });
 
-    setMethod(state.method);
     updatePricesUI();
   })();
   </script>
