@@ -370,7 +370,6 @@
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-top: auto;
     }
 
     .summary-total-label {
@@ -1045,38 +1044,8 @@
 <body>
 
   <main class="checkout-shell">
-    <!-- COLUNA ESQUERDA: Card Mint/Teal, Resumo e Total -->
+    <!-- COLUNA ESQUERDA: Resumo e Total -->
     <section class="col-summary" aria-label="Resumo do pedido">
-      <!-- Hero Card Teal/Mint inspirado na Imagem 2 -->
-      <div class="product-hero" id="product-hero">
-        <svg class="product-hero-art" viewBox="0 0 400 320" fill="none" preserveAspectRatio="none">
-          <path d="M-40 280 C 80 180, 180 320, 440 90" stroke="#ffffff" stroke-width="1.5"/>
-          <path d="M-20 320 C 120 200, 220 340, 460 130" stroke="#ffffff" stroke-width="1.2"/>
-          <path d="M220 -30 L340 160 L250 340" stroke="#ffffff" stroke-width="1.4"/>
-          <circle cx="320" cy="70" r="90" stroke="#ffffff" stroke-width="1.2"/>
-        </svg>
-
-        <div class="product-hero-top">
-          <span class="hero-badge" id="ui-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7" rx="1"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-            <span id="ui-badge-text">Presente</span>
-          </span>
-        </div>
-
-        <div class="hero-center-mark" aria-hidden="true">
-          <!-- Emblema Geométrico YuvexPay -->
-          <svg width="68" height="68" viewBox="0 0 64 64" fill="none">
-            <path d="M14 14L32 34L50 14" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M32 34V52" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round"/>
-            <path d="M20 44H44" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.65"/>
-          </svg>
-        </div>
-
-        <div class="product-hero-bottom">
-          <h1 class="hero-product-title" id="ui-hero-title">Site Profissional Completo</h1>
-        </div>
-      </div>
-
       <!-- Detalhamento de preço -->
       <div class="summary-item-row">
         <span class="summary-item-name" id="ui-item-name">Site Profissional Completo</span>
@@ -1085,21 +1054,6 @@
       <p class="summary-item-desc" id="ui-item-desc">
         Site publicado com domínio, cardápio digital, botão direto do WhatsApp e destaque no Google
       </p>
-
-      <button type="button" class="coupon-trigger" id="btn-toggle-coupon">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
-        <span>Adicionar cupom de desconto</span>
-      </button>
-
-      <div class="coupon-box" id="coupon-box">
-        <input type="text" class="coupon-input" id="inp-coupon" placeholder="CÓDIGO DO CUPOM" maxlength="32">
-        <button type="button" class="coupon-apply-btn" id="btn-apply-coupon">Aplicar</button>
-      </div>
-
-      <div class="discount-row" id="discount-row">
-        <span id="discount-label">Cupom aplicado</span>
-        <span id="discount-value">- R$ 0,00</span>
-      </div>
 
       <hr class="summary-divider">
 
@@ -1398,13 +1352,12 @@
     </section>
   </main>
 
-  <script>window.__CHECKOUT_CFG__ = {"product_name": "Site Profissional Completo", "product_sub": "Site no ar, card\u00e1pio digital, bot\u00e3o direto do WhatsApp e destaque no Google", "badge": "Presente", "amount": 597.0, "methods": ["PIX", "CARD", "BOLETO"], "coupon_code": "", "return_url": "", "completion_url": "", "expires_minutes": 60, "boleto_note": "Vencimento em at\u00e9 1 ano", "embed_key": false};</script>
+  <script>window.__CHECKOUT_CFG__ = {"product_name": "Site Profissional Completo", "product_sub": "Site no ar, card\u00e1pio digital, bot\u00e3o direto do WhatsApp e destaque no Google", "amount": 597.0, "methods": ["PIX", "CARD", "BOLETO"], "return_url": "", "completion_url": "", "expires_minutes": 60, "boleto_note": "Vencimento em at\u00e9 1 ano", "embed_key": false, "badge": "Presente", "coupon_code": ""};</script>
   <script>
   (() => {
     const CFG = Object.assign({
       product_name: "Site Profissional Completo",
       product_sub: "Site no ar, cardápio digital, botão direto do WhatsApp e destaque no Google",
-      badge: "Presente",
       amount: 597.00,
       methods: ["PIX", "CARD", "BOLETO"],
       default_method: "BOLETO",
@@ -1422,7 +1375,6 @@
       CFG.product_name = params.get("produto") || params.get("title") || (emp ? `Site Profissional · ${emp}` : CFG.product_name);
     }
     if (params.get("descricao") || params.get("sub")) CFG.product_sub = params.get("descricao") || params.get("sub");
-    if (params.get("badge")) CFG.badge = params.get("badge");
     if (params.get("valor") || params.get("amount") || params.get("price")) {
       const rawVal = String(params.get("valor") || params.get("amount") || params.get("price")).replace(",", ".");
       const parsed = parseFloat(rawVal);
@@ -1442,8 +1394,6 @@
     let state = {
       method: CFG.default_method || "BOLETO",
       subtotal: Number(CFG.amount || 597),
-      discount: 0,
-      couponCode: params.get("cupom") || "",
       loading: false,
       payment: null,
       pollTimer: null
@@ -1452,8 +1402,6 @@
     const $ = (id) => document.getElementById(id);
 
     // Preenche textos iniciais
-    $("ui-badge-text").textContent = CFG.badge;
-    $("ui-hero-title").textContent = CFG.product_name;
     $("ui-item-name").textContent = CFG.product_name;
     $("ui-item-desc").textContent = CFG.product_sub;
     $("ui-boleto-note").textContent = CFG.boleto_note || "Vencimento em até 1 ano";
@@ -1466,20 +1414,13 @@
     if (params.get("tel") || params.get("whats")) $("inp-phone").value = formatPhone(params.get("tel") || params.get("whats"));
 
     function totalAmount() {
-      return Math.max(0, +(state.subtotal - state.discount).toFixed(2));
+      return Math.max(0, +state.subtotal.toFixed(2));
     }
 
     function updatePricesUI() {
       $("ui-item-price").textContent = brl(state.subtotal);
       const tot = totalAmount();
       $("ui-total-price").textContent = brl(tot);
-      if (state.discount > 0) {
-        $("discount-row").classList.add("active");
-        $("discount-label").textContent = `Cupom (${state.couponCode})`;
-        $("discount-value").textContent = `- ${brl(state.discount)}`;
-      } else {
-        $("discount-row").classList.remove("active");
-      }
       updateSubmitButtonUI();
     }
 
@@ -1617,31 +1558,6 @@
       e.target.value = formatPhone(e.target.value);
     });
 
-    // Cupom de Desconto
-    $("btn-toggle-coupon").addEventListener("click", () => {
-      const box = $("coupon-box");
-      box.classList.toggle("open");
-      if (box.classList.contains("open")) $("inp-coupon").focus();
-    });
-
-    $("btn-apply-coupon").addEventListener("click", () => {
-      const code = ($("inp-coupon").value || "").trim().toUpperCase();
-      if (!code) return;
-      state.couponCode = code;
-      // Desconto visual imediato para cupons padrão ou enviado no POST /v1/payments
-      if (code === "FREE100" || code === "GRATIS") {
-        state.discount = state.subtotal;
-      } else if (code.endsWith("20")) {
-        state.discount = +(state.subtotal * 0.20).toFixed(2);
-      } else if (code.endsWith("10") || code === "DESCONTO10") {
-        state.discount = +(state.subtotal * 0.10).toFixed(2);
-      } else {
-        state.discount = +(state.subtotal * 0.05).toFixed(2);
-      }
-      updatePricesUI();
-      showFeedback(`Cupom ${code} aplicado ao pedido!`, "success");
-    });
-
     function showFeedback(msg, kind = "error") {
       const el = $("feedback-banner");
       el.className = `feedback-banner ${kind}`;
@@ -1725,7 +1641,6 @@
         expiresInMinutes: Number(CFG.expires_minutes || 60),
         customer: customer
       };
-      if (state.couponCode) payload.couponCode = state.couponCode;
       if (CFG.return_url) payload.returnUrl = CFG.return_url;
       if (CFG.completion_url) payload.completionUrl = CFG.completion_url;
 
@@ -1771,7 +1686,6 @@
           expiresInMinutes: payload.expiresInMinutes,
           customer: customer
         };
-        if (state.couponCode) apiBody.couponCode = state.couponCode;
         if (state.method === "CARD") {
           if (CFG.return_url) apiBody.returnUrl = CFG.return_url;
           if (CFG.completion_url) apiBody.completionUrl = CFG.completion_url;
