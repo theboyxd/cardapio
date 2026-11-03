@@ -44,49 +44,16 @@
   .feature .tag { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; color: var(--brand); font-weight: 700; }
   .feature h3 { font-size: clamp(17px, 4.8vw, 20px); margin: 8px 0 6px; line-height: 1.2; }
   .feature p { font-size: 12.5px; opacity: .72; }
-  /* Botões e Navegação Expo-Glass-Nav (Vidro Liquid Glass tátil com blur, brilho especular e efeito de profundidade) */
-  .pill, .add, .icon-btn, .chip, .arr, .cart, .step button {
-    position: relative; isolation: isolate;
-    -webkit-backdrop-filter: blur(20px) saturate(185%) brightness(1.08); backdrop-filter: blur(20px) saturate(185%) brightness(1.08);
-    transition: transform .18s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow .18s ease, background .18s ease;
-  }
-  .pill:active, .add:active, .icon-btn:active, .arr:active, .cart:active, .step button:active { transform: scale(.94); }
-  .pill::before, .add::before, .cart::before, .icon-btn::before, .arr::before {
-    content: ""; position: absolute; inset: 1px; border-radius: inherit; pointer-events: none; z-index: 1;
-    background: linear-gradient(180deg, rgba(255,255,255,.50) 0%, rgba(255,255,255,.08) 48%, rgba(255,255,255,0) 52%, rgba(255,255,255,.10) 100%);
-  }
   .pill { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 99px; padding: 12px 18px; font-weight: 700; font-size: 14px; }
-  .pill.brand {
-    background: color-mix(in srgb, var(--brand) 86%, transparent); color: var(--brand-text); margin-top: 14px;
-    border: 1px solid rgba(255,255,255,.55);
-    box-shadow: 0 10px 28px color-mix(in srgb, var(--brand) 40%, rgba(11,7,5,.22)),
-                inset 0 1px 1.5px rgba(255,255,255,.85), inset 0 -1px 1px rgba(0,0,0,.20), inset 0 0 14px rgba(255,255,255,.20);
-  }
-  .pill.dark {
-    background: color-mix(in srgb, var(--btn) 86%, transparent); color: var(--btn-text);
-    border: 1px solid rgba(255,255,255,.32);
-    box-shadow: 0 10px 26px rgba(11,7,5,.28), inset 0 1px 1px rgba(255,255,255,.45), inset 0 -1px 1px rgba(0,0,0,.45), inset 0 0 14px rgba(255,255,255,.10);
-  }
-  .pill.light {
-    background: rgba(255,255,255,.38); color: var(--ink);
-    border: 1px solid rgba(255,255,255,.65);
-    box-shadow: 0 10px 24px rgba(11,7,5,.12), inset 0 1px 1px rgba(255,255,255,.90), inset 0 -1px 1px rgba(255,255,255,.25);
-  }
+  .pill.brand { background: var(--brand); color: var(--brand-text); margin-top: 14px; }
+  .pill.dark { background: var(--btn); color: var(--btn-text); }
+  .pill.light { background: var(--card); color: var(--ink); }
   .ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 6px; }
   .chips { display: flex; gap: 10px; overflow-x: auto; padding: 14px 0 4px; scrollbar-width: none; }
   .chips::-webkit-scrollbar { display: none; }
-  .chip {
-    flex: none; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.45);
-    border-radius: 99px; padding: 6px 14px 6px 6px; font-size: 13.5px; font-weight: 600;
-    border: 1px solid rgba(255,255,255,.55);
-    box-shadow: 0 4px 14px rgba(11,7,5,.08), inset 0 1px 1px rgba(255,255,255,.80);
-  }
+  .chip { flex: none; display: flex; align-items: center; gap: 8px; background: var(--card); border-radius: 99px; padding: 6px 14px 6px 6px; font-size: 13.5px; font-weight: 600; }
   .chip img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
-  .chip.on {
-    background: color-mix(in srgb, var(--btn) 88%, transparent); color: var(--btn-text);
-    border: 1px solid rgba(255,255,255,.35);
-    box-shadow: inset 0 0 0 2px var(--brand), 0 6px 16px rgba(11,7,5,.22), inset 0 1px 1px rgba(255,255,255,.45);
-  }
+  .chip.on { background: var(--btn); color: var(--btn-text); box-shadow: inset 0 0 0 2px var(--brand); }
   h2 { font-size: 18px; margin: 24px 0 12px; display: flex; justify-content: space-between; align-items: baseline; }
   h2 small { font-size: 13px; color: var(--muted); font-weight: 600; }
   .trend { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; scroll-snap-type: x proximity; }
@@ -94,8 +61,8 @@
   .trend img, .chips img { -webkit-user-drag: none; }
   .tcard { scroll-snap-align: start; }
   .arrows { display: flex; gap: 6px; }
-  .arr { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.42); font-size: 20px; line-height: 1; display: grid; place-items: center;
-    border: 1px solid rgba(255,255,255,.60); box-shadow: 0 4px 14px rgba(11,7,5,.10), inset 0 1px 1px rgba(255,255,255,.85); }
+  .arr { width: 34px; height: 34px; border-radius: 50%; background: var(--card); font-size: 20px; line-height: 1; display: grid; place-items: center;
+    box-shadow: 0 2px 8px rgba(11,7,5,.08); }
   .arr:disabled { opacity: .35; cursor: default; }
   .add svg, .step button svg, .arr svg { display: block; }
   .trend::-webkit-scrollbar { display: none; }
@@ -112,9 +79,7 @@
   .item p { font-size: 12px; color: var(--muted); margin: 2px 0 8px; flex: 1; }
   .row { display: flex; align-items: center; justify-content: space-between; }
   .price { font-weight: 800; font-size: 15px; }
-  .add { width: 34px; height: 34px; border-radius: 50%; background: color-mix(in srgb, var(--brand) 88%, transparent); color: var(--brand-text); font-size: 20px; line-height: 1; display: grid; place-items: center;
-    border: 1px solid rgba(255,255,255,.55);
-    box-shadow: 0 6px 16px color-mix(in srgb, var(--brand) 40%, rgba(11,7,5,.20)), inset 0 1px 1px rgba(255,255,255,.85), inset 0 -1px 1px rgba(0,0,0,.20); }
+  .add { width: 34px; height: 34px; border-radius: 50%; background: var(--brand); color: var(--brand-text); font-size: 20px; line-height: 1; display: grid; place-items: center; }
   .info { background: var(--card); border-radius: 24px; padding: 6px 16px; }
   .info a, .info div { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid #EEE8E3; font-size: 14px; }
   .info > :last-child { border-bottom: 0; }
@@ -126,11 +91,8 @@
   .reserve h3 { font-size: 20px; }
   .reserve p { font-size: 13px; color: rgba(255,255,255,.8); margin: 4px 0 12px; }
   .foot { text-align: center; color: var(--muted); font-size: 11.5px; margin-top: 28px; line-height: 1.5; }
-  .cart { position: fixed; left: 50%; transform: translateX(-50%); bottom: 92px; width: min(424px, calc(100% - 36px));
-    background: color-mix(in srgb, var(--btn) 88%, transparent); color: var(--btn-text);
-    border-radius: 20px; padding: 12px 14px; display: none; align-items: center; justify-content: space-between; gap: 10px; z-index: 5;
-    border: 1px solid rgba(255,255,255,.38);
-    box-shadow: 0 16px 38px rgba(11,7,5,.28), inset 0 1px 1px rgba(255,255,255,.55), inset 0 -1px 1px rgba(0,0,0,.35), inset 0 0 18px rgba(255,255,255,.12); }
+  .cart { position: fixed; left: 50%; transform: translateX(-50%); bottom: 92px; width: min(424px, calc(100% - 36px)); background: var(--btn); color: var(--btn-text);
+    border-radius: 20px; padding: 12px 14px; display: none; align-items: center; justify-content: space-between; gap: 10px; z-index: 5; }
   .cart.show { display: flex; }
   .cart small { opacity: .7; display: block; font-size: 12px; }
   /* Vidro "Liquid Glass" (o visual do expo-glass-effect, feito em CSS para funcionar no navegador de qualquer celular) */
@@ -146,42 +108,6 @@
   .nav a.on { background: color-mix(in srgb, var(--btn) 86%, transparent); color: var(--btn-text);
     box-shadow: inset 0 1px 1px rgba(255,255,255,.35), 0 6px 14px rgba(11,7,5,.28); }
   .nav svg { width: 21px; height: 21px; }
-
-  /* Estilo Noir & Champagne Ouro - Clínica Viotto */
-  body.theme-dark { background: #050505; color: #FFFFFF; }
-  .app.theme-dark {
-    background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 400px),
-                linear-gradient(180deg, #141210 0%, #0B0A09 380px),
-                #0B0A09;
-    color: #FFFFFF;
-  }
-  @media (min-width: 520px) { .app.theme-dark { box-shadow: 0 30px 90px rgba(0,0,0,.7), 0 0 1px rgba(212, 175, 55, 0.35); } }
-  .theme-dark .search { background: rgba(24, 22, 19, 0.75); border: 1px solid rgba(212, 175, 55, 0.25); color: #A09689; backdrop-filter: blur(20px); }
-  .theme-dark .search input { color: #FFFFFF; }
-  .theme-dark .feature { background: linear-gradient(135deg, #1B1814 0%, #0D0C0A 100%); border: 1px solid rgba(212, 175, 55, 0.30); box-shadow: 0 16px 36px rgba(0,0,0,.5); }
-  .theme-dark .tcard { background: linear-gradient(160deg, rgba(30, 27, 22, 0.95) 0%, rgba(18, 16, 13, 0.95) 100%); border: 1px solid rgba(212, 175, 55, 0.22); box-shadow: 0 8px 24px rgba(0,0,0,.4); color: #FFFFFF; }
-  .theme-dark .tcard:nth-child(2n) { background: linear-gradient(160deg, rgba(36, 32, 26, 0.95) 0%, rgba(22, 19, 15, 0.95) 100%); border: 1px solid rgba(212, 175, 55, 0.28); }
-  .theme-dark .item { background: rgba(22, 20, 17, 0.88); border: 1px solid rgba(212, 175, 55, 0.20); backdrop-filter: blur(16px); box-shadow: 0 8px 24px rgba(0,0,0,.35); color: #FFFFFF; }
-  .theme-dark .item p { color: #A89E90; }
-  .theme-dark .info, .theme-dark .panel { background: rgba(22, 20, 17, 0.88); border: 1px solid rgba(212, 175, 55, 0.20); backdrop-filter: blur(16px); color: #FFFFFF; }
-  .theme-dark .info a, .theme-dark .info div, .theme-dark .line { border-bottom-color: rgba(212, 175, 55, 0.12); }
-  .theme-dark .step { background: rgba(35, 31, 26, 0.9); border: 1px solid rgba(212, 175, 55, 0.15); }
-  .theme-dark .step button { background: rgba(50, 45, 38, 0.95); color: #FFFFFF; }
-  .theme-dark .seg { background: rgba(30, 27, 22, 0.9); border: 1px solid rgba(212, 175, 55, 0.22); }
-  .theme-dark .fld input, .theme-dark .fld select { background: rgba(24, 21, 18, 0.92); border: 1px solid rgba(212, 175, 55, 0.25); color: #FFFFFF; }
-  .theme-dark .status { background: rgba(26, 24, 20, 0.9); border: 1px solid rgba(212, 175, 55, 0.25); color: #E8E2D8; }
-  .theme-dark .lead, .theme-dark .tab-sub, .theme-dark h2 small { color: #A89E90; }
-  .theme-dark .up { background: rgba(26, 23, 20, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); color: #FFFFFF; }
-  .theme-dark .sum.total { color: #FFFFFF; }
-  .theme-dark .pill.brand { background: linear-gradient(180deg, #F5D996 0%, #D4AF37 100%); color: #0B0705; font-weight: 800; border: 1px solid rgba(255, 255, 255, 0.65); box-shadow: 0 10px 28px rgba(212, 175, 55, 0.40), inset 0 1.5px 2px rgba(255,255,255,.95); }
-  .theme-dark .pill.dark { background: rgba(18, 16, 14, 0.85); border: 1px solid rgba(212, 175, 55, 0.40); color: var(--brand); box-shadow: 0 10px 24px rgba(0,0,0,.5), inset 0 1px 1px rgba(255,255,255,.25); }
-  .theme-dark .pill.light { background: rgba(35, 31, 26, 0.75); border: 1px solid rgba(212, 175, 55, 0.35); color: #FFFFFF; }
-  .theme-dark .nav { background: rgba(18, 16, 13, 0.72); border: 1px solid rgba(212, 175, 55, 0.38); box-shadow: 0 16px 42px rgba(0,0,0,.65), inset 0 1px 1px rgba(255,255,255,.35), inset 0 0 18px rgba(212, 175, 55, 0.18); }
-  .theme-dark .nav a { color: #E8E2D8; }
-  .theme-dark .nav a.on { background: color-mix(in srgb, var(--brand) 82%, transparent); color: #0B0705; box-shadow: inset 0 1px 1px rgba(255,255,255,.6), 0 6px 16px rgba(0,0,0,.6); }
-  .theme-dark .chip { background: rgba(28, 25, 21, 0.8); border: 1px solid rgba(212, 175, 55, 0.25); color: #E8E2D8; }
-  .theme-dark .icon-btn, .theme-dark .arr { background: rgba(28, 25, 21, 0.8); border: 1px solid rgba(212, 175, 55, 0.28); color: #E8E2D8; }
-  .theme-dark .cart { background: rgba(18, 16, 13, 0.88); border: 1px solid rgba(212, 175, 55, 0.38); box-shadow: 0 18px 42px rgba(0,0,0,.65), inset 0 1px 1px rgba(255,255,255,.35), inset 0 0 18px rgba(212, 175, 55, 0.18); color: #FFFFFF; }
   .item { position: relative; }
   .qty { position: absolute; top: 16px; right: 16px; min-width: 26px; height: 26px; padding: 0 7px; border-radius: 99px; background: var(--brand);
     color: var(--brand-text); font-weight: 800; font-size: 13px; display: grid; place-items: center; box-shadow: 0 4px 10px rgba(11,7,5,.25); }
@@ -448,40 +374,8 @@
         it('Entradas', 'Harumaki', '4 rolinhos crocantes', 16.9, '1787273670681-b1886c2807a3'),
         it('Entradas', 'Missoshiru', 'Sopa de missô com tofu e cebolinha', 12.9, '1763470260582-894ae15f43bb')],
       up: ['Refrigerante', 'Harumaki', 'Missoshiru'] },
-    clinica: {
-      nome: 'Clínica Viotto', cor: '#D4AF37', cor2: '#0B0A09',
-      tagline: 'Excelência em Harmonização Orofacial e Lentes de Contato em Porcelana. Metodologia exclusiva, tecnologia 3D e sofisticação.',
-      feat: {
-        tag: '★ Procedimento Assinatura',
-        title: 'Lentes de Contato em Porcelana Pura',
-        text: 'A metodologia exclusiva que transformou o sorriso de celebridades. Planejamento digital e acabamento artesanal.',
-        img: '1606811841689-23dfddce3e95',
-        order: 'Lentes de Contato em Porcelana Pura'
-      },
-      trend: [0, 2, 3, 5],
-      items: [
-        it('Lentes & Facetas', 'Lentes em Porcelana Ultra-Fina', 'Lâminas ultrafinas de 0.2mm em porcelana pura alemã com máxima durabilidade e brilho natural.', 3500, '1606811841689-23dfddce3e95'),
-        it('Lentes & Facetas', 'Facetas em Resina Composta', 'Escultura estética em resina nanohíbrida em sessão única. Correção imediata de forma e cor.', 1200, '1588776814546-1ffcf47267a5'),
-        it('Harmonização', 'Harmonização Facial Full Face', 'Preenchimento tridimensional estruturado: mandíbula, malar, mento e têmporas com ácido hialurônico.', 5800, '1576091160399-112ba8d25d1d'),
-        it('Harmonização', 'Preenchimento Labial Russian Lips', 'Definição anatômica do arco do cupido, contorno e projeção labial com ácido hialurônico premium.', 1850, '1512290900672-1f023c76524b'),
-        it('Botox & Fios', 'Botox Preventivo & Reparador', 'Toxina botulínica de alta precisão para linhas de expressão, testa, glabela e arqueamento de sobrancelhas.', 1450, '1522337360788-8b13dee7a37e'),
-        it('Botox & Fios', 'Bioestimuladores de Colágeno', 'Sculptra ou Radiesse para reposicionamento tecidual e estímulo biológico de colágeno por até 24 meses.', 3200, '1579684385127-1ef15d508118'),
-        it('Estética & Clareamento', 'Clareamento a Laser White Diamond', 'Tecnologia fotoativada de alta potência. Até 6 tons mais claro em apenas 3 sessões sem sensibilidade.', 980, '1598256989800-fe5f95da9787'),
-        it('Harmonização', 'Rinomodelação Estrutural', 'Correção de giba nasal e elevação da ponta com ácido hialurônico de alta viscosidade, sem cirurgia.', 2400, '1505944270255-72b8c68c6a70'),
-        it('Botox & Fios', 'Fios de PDO de Sustentação (Lifting)', 'Efeito lifting imediato e bioestimulação contínua na derme profunda com fios absorvíveis.', 2900, '1519494026892-80bbd2d6fd0d'),
-        it('Estética & Clareamento', 'Plástica Gengival (Gengivoplastia)', 'Harmonização do alinhamento do zênite gengival para proporção perfeita dos dentes ao sorrir.', 1600, '1629909613654-28e377c37b09'),
-        it('Estética & Clareamento', 'Check-up Odonto & Profilaxia VIP', 'Limpeza ultrassônica com jato de bicarbonato e polimento coronário em consultório boutique.', 480, '1629909615184-74f495363b67'),
-      ],
-      up: ['Clareamento a Laser White Diamond', 'Preenchimento Labial Russian Lips', 'Check-up Odonto & Profilaxia VIP']
-    },
   };
   const T = TEMPLATES[P.get('tipo')] || TEMPLATES.restaurante;
-  const isClinic = (P.get('tipo') || '').toLowerCase().includes('clinica') ||
-                   (P.get('tipo') || '').toLowerCase().includes('harmoniz') ||
-                   (P.get('tipo') || '').toLowerCase().includes('hof') ||
-                   (P.get('tipo') || '').toLowerCase().includes('odonto') ||
-                   (P.get('tipo') || '').toLowerCase().includes('estetica') ||
-                   T === TEMPLATES.clinica;
   const MENU = T.items;
   const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const $ = (s) => document.querySelector(s);
@@ -496,9 +390,9 @@
     st.cor2 = hex('cor2', T.cor2);
     st.logo = /^(https?:\/\/|logo\.png$)/i.test(P.get('logo') || '') ? P.get('logo') : ''; // logo.png: o logo colado no Radar
     st.whats = (P.get('whats') || '').replace(/\D/g, '').slice(0, 13);
-    st.end = (P.get('end') || (isClinic ? 'Av. Pres. Juscelino Kubitschek, 1455 · Itaim Bibi' : 'Rua das Flores, 120 · Centro')).slice(0, 120);
-    st.nota = (P.get('nota') || (isClinic ? '5,0' : '4,8')).slice(0, 4);
-    st.aval = (P.get('aval') || (isClinic ? '2.840' : '1.250')).slice(0, 9);
+    st.end = (P.get('end') || 'Rua das Flores, 120 · Centro').slice(0, 120);
+    st.nota = (P.get('nota') || '4,8').slice(0, 4);
+    st.aval = (P.get('aval') || '1.250').slice(0, 9);
     st.por = (P.get('por') || 'John').slice(0, 40);
     // texto escuro em cor clara (amarelo, bege…) e branco em cor escura, para nunca sumir
     const textOn = (c) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16) / 255);
@@ -508,88 +402,10 @@
     css.setProperty('--brand-text', textOn(st.cor));
     css.setProperty('--btn', st.cor2);
     css.setProperty('--btn-text', textOn(st.cor2));
-    document.body.classList.toggle('theme-dark', isClinic);
-    $('#app').classList.toggle('theme-dark', isClinic);
-    document.title = isClinic ? `${st.nome} · Harmonização & Estética VIP` : `${st.nome} · Cardápio e pedidos`;
+    document.title = `${st.nome} · Cardápio e pedidos`;
     document.querySelectorAll('[data-name]').forEach((n) => { n.textContent = st.nome; });
     const taglineEl = $('#tagline');
     if (taglineEl) taglineEl.textContent = T.tagline;
-    if (isClinic) {
-      $('#q').placeholder = 'Buscar procedimentos (lentes, harmonização, botox...)';
-      $('#featBtn').textContent = 'Agendar Avaliação';
-      const cta1 = document.querySelector('[data-go="reservas"]');
-      if (cta1) cta1.textContent = 'Agendar Consulta VIP';
-      const cta2 = document.querySelector('[data-scroll="cardapio"]');
-      if (cta2) cta2.textContent = 'Ver Procedimentos';
-      const trendH2 = document.querySelector('.trend').previousElementSibling;
-      if (trendH2 && trendH2.firstChild) trendH2.firstChild.textContent = 'Procedimentos em Destaque ';
-      const menuH2 = document.getElementById('cardapio');
-      if (menuH2 && menuH2.firstChild) menuH2.firstChild.textContent = 'Procedimentos & Tratamentos ';
-      
-      const cartTitle = document.querySelector('[data-tab="pedido"] .tab-title');
-      if (cartTitle) cartTitle.textContent = 'Sua Avaliação VIP';
-      const cartEmptyB = document.querySelector('#cartEmpty b');
-      if (cartEmptyB) cartEmptyB.textContent = 'Nenhum procedimento selecionado';
-      const cartEmptyBtn = document.querySelector('#cartEmpty button');
-      if (cartEmptyBtn) cartEmptyBtn.textContent = 'Conhecer Procedimentos';
-      
-      const mode1 = document.querySelector('[data-mode="entrega"]');
-      if (mode1) mode1.textContent = 'Consulta Presencial';
-      const mode2 = document.querySelector('[data-mode="retirada"]');
-      if (mode2) mode2.textContent = 'Avaliação Online (Vídeo)';
-      
-      const addrFld = document.getElementById('addrFld');
-      if (addrFld && addrFld.firstChild) addrFld.firstChild.textContent = 'Sua Cidade ou Unidade ';
-      const delAddrIn = document.getElementById('delAddr');
-      if (delAddrIn) delAddrIn.placeholder = 'Ex.: São Paulo - Jardins, ou sua cidade';
-      const delRef = document.getElementById('delRef');
-      if (delRef) delRef.placeholder = 'Preferência de turno: manhã ou tarde';
-      
-      const payFld = document.getElementById('payFld');
-      if (payFld && payFld.firstChild) payFld.firstChild.textContent = 'Opção de Pagamento / Avaliação ';
-      
-      const modeLbl = document.getElementById('modeLabel');
-      if (modeLbl) modeLbl.textContent = 'Modalidade';
-      const modeF = document.getElementById('modeFee');
-      if (modeF) modeF.textContent = 'Presencial VIP';
-      
-      const totalLbl = document.querySelector('.sum.total span');
-      if (totalLbl) totalLbl.textContent = 'Estimativa de Investimento';
-      
-      const sendBtn = document.querySelector('[data-send]');
-      if (sendBtn) sendBtn.textContent = 'Solicitar Avaliação VIP pelo WhatsApp';
-      const clearBtn = document.querySelector('[data-clear]');
-      if (clearBtn) clearBtn.textContent = 'Limpar seleção';
-
-      const rTitle = document.querySelector('[data-tab="reservas"] .tab-title');
-      if (rTitle) rTitle.textContent = 'Agendamento VIP';
-      const rSub = document.querySelector('[data-tab="reservas"] .tab-sub');
-      if (rSub) rSub.textContent = 'Escolha a data e o horário. Nossa concierge confirmará seu atendimento exclusivo.';
-      const rImg = document.querySelector('.reserve img');
-      if (rImg) rImg.src = 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=70';
-      const rH3 = document.querySelector('.reserve h3');
-      if (rH3) rH3.textContent = 'Excelência, conforto e atendimento boutique';
-      const rP = document.querySelector('.reserve p');
-      if (rP) rP.textContent = 'Consultório privativo com tecnologia 3D e biossegurança máxima.';
-      
-      const pSpan = document.querySelector('.people > span');
-      if (pSpan) pSpan.textContent = 'Pacientes';
-      const rNameFld = document.getElementById('rNameFld');
-      if (rNameFld && rNameFld.firstChild) rNameFld.firstChild.textContent = 'Seu nome completo ';
-      const rNameIn = document.getElementById('rName');
-      if (rNameIn) rNameIn.placeholder = 'Nome completo do paciente';
-      const rNoteIn = document.getElementById('rNote');
-      if (rNoteIn) rNoteIn.placeholder = 'Procedimento de interesse, queixa principal ou observação…';
-      const bookBtn = document.querySelector('[data-book]');
-      if (bookBtn) bookBtn.textContent = 'Confirmar Agendamento pelo WhatsApp';
-
-      const localTitle = document.querySelector('[data-tab="local"] .tab-title');
-      if (localTitle) localTitle.textContent = 'A Clínica';
-      const dirLink = document.getElementById('dirLink');
-      if (dirLink) dirLink.textContent = 'Como Chegar';
-      const talkBtn = document.querySelector('[data-talk]');
-      if (talkBtn) talkBtn.textContent = 'Falar com Concierge';
-    }
     const words = st.nome.split(/\s+/).filter((w) => w && !/^(d[aeo]s?|e|o|a|&|the)$/i.test(w));
     if (st.logo) {
       const resolvedLogo = (st.logo === 'logo.png')
@@ -642,11 +458,7 @@
     $('#cartEmpty').hidden = qty > 0;
     $('#cartFull').hidden = !qty;
     $('#cartTotal').textContent = brl(total);
-    $('#cartItems').textContent = isClinic
-      ? `${qty} ${qty === 1 ? 'procedimento selecionado' : 'procedimentos selecionados'}`
-      : `${qty} ${qty === 1 ? 'item' : 'itens'} no pedido`;
-    const cartPill = document.querySelector('#cart .pill');
-    if (cartPill) cartPill.textContent = isClinic ? 'Minha Avaliação' : 'Ver pedido';
+    $('#cartItems').textContent = `${qty} ${qty === 1 ? 'item' : 'itens'} no pedido`;
     $('#sheetTotal').textContent = brl(total);
     paintUpsell();
     $('#lines').replaceChildren(...items.map(([i, q]) => el('div', { className: 'line' },
@@ -758,14 +570,14 @@
     return el('option', { value: label, textContent: label, selected: label === '20:00' });
   }));
   const addBtn = (i) => el('button', { className: 'add', innerHTML: PLUS, ariaLabel: 'Adicionar', onclick: () => {
-    change(i, 1); toast(isClinic ? `${MENU[i].name} na sua avaliação` : `${MENU[i].name} no pedido`);
+    change(i, 1); toast(`${MENU[i].name} no pedido`);
   } });
 
   let cat = 'Todos';
   function paintMenu() {
     const q = $('#q').value.trim().toLowerCase();
     const list = MENU.map((m, i) => [m, i]).filter(([m]) => (cat === 'Todos' || m.cat === cat) && (!q || `${m.name} ${m.desc}`.toLowerCase().includes(q)));
-    $('#count').textContent = `${list.length} ${list.length === 1 ? (isClinic ? 'procedimento' : 'opção') : (isClinic ? 'procedimentos' : 'opções')}`;
+    $('#count').textContent = `${list.length} ${list.length === 1 ? 'opção' : 'opções'}`;
     $('#grid').replaceChildren(...list.map(([m, i]) => el('div', { className: 'item' },
       el('img', { src: img(m.img, 400), alt: m.name, loading: 'lazy' }), el('b', { textContent: m.name }), el('p', { textContent: m.desc }),
       el('div', { className: 'row' }, el('span', { className: 'price', textContent: brl(m.price) }), addBtn(i)),
@@ -785,37 +597,27 @@
     const t = e.target.closest('button, a');
     if (!t) return;
     if (t.dataset.toast) toast(t.dataset.toast);
-    if (t.dataset.order) {
-      if (isClinic) {
-        wa(`Olá, Dra.! Vi o perfil da ${st.nome} e gostaria de agendar uma Avaliação VIP para: ${t.dataset.order}. Como funciona a primeira consulta? ✨`);
-      } else {
-        wa(`Olá! Quero pedir: ${t.dataset.order} 😋`);
-      }
-    }
+    if (t.dataset.order) wa(`Olá! Quero pedir: ${t.dataset.order} 😋`);
     if (t.dataset.slide) $('#trend').scrollBy({ left: Number(t.dataset.slide) * 180, behavior: 'smooth' });
     if (t.dataset.scroll) document.getElementById(t.dataset.scroll).scrollIntoView({ behavior: 'smooth' });
     if (t.dataset.people) $('#rPeople').textContent = Math.min(20, Math.max(1, Number($('#rPeople').textContent) + Number(t.dataset.people)));
     if (t.hasAttribute('data-book')) {
       const name = $('#rName').value.trim();
       $('#rNameFld').classList.toggle('miss', !name);
-      if (!name) { $('#rName').focus(); return toast(isClinic ? 'Digite seu nome completo para a consulta.' : 'Digite o seu nome para a reserva.'); }
+      if (!name) { $('#rName').focus(); return toast('Digite o seu nome para a reserva.'); }
       const [y, m, d] = $('#rDate').value.split('-');
       const note = $('#rNote').value.trim();
-      if (isClinic) {
-        wa(`Olá, Dra.! Gostaria de solicitar um Agendamento VIP na ${st.nome}:\n\n🗓 Data: ${d}/${m}/${y}\n⏰ Horário de preferência: ${$('#rTime').value}\n👤 Paciente: ${name}${note ? `\n✨ Queixa / Interesse: ${note}` : ''}\n\nAguardando confirmação da equipe. Obrigado! ✨`);
-      } else {
-        wa(`Olá! Quero reservar uma mesa:\nDia: ${d}/${m}/${y}\nHorário: ${$('#rTime').value}\nPessoas: ${$('#rPeople').textContent}\nNome: ${name}${note ? `\nObservação: ${note}` : ''}`);
-      }
+      wa(`Olá! Quero reservar uma mesa:\nDia: ${d}/${m}/${y}\nHorário: ${$('#rTime').value}\nPessoas: ${$('#rPeople').textContent}\nNome: ${name}${note ? `\nObservação: ${note}` : ''}`);
     }
     if (t.hasAttribute('data-talk')) {
-      wa(isClinic ? `Olá! Vi o perfil da ${st.nome} e gostaria de falar com a concierge sobre procedimentos de estética e harmonização.` : `Olá! Vi o site de vocês e queria uma informação.`);
+      wa(`Olá! Vi o site de vocês e queria uma informação.`);
     }
     if (t.dataset.mode) {
       document.querySelectorAll('#mode button').forEach((b) => b.classList.toggle('on', b === t));
       const pickup = t.dataset.mode === 'retirada';
       $('#addrBox').hidden = pickup;
-      $('#modeLabel').textContent = pickup ? (isClinic ? 'Online' : 'Retirada') : (isClinic ? 'Presencial' : 'Entrega');
-      $('#modeFee').textContent = pickup ? (isClinic ? 'Por Vídeo' : 'No balcão') : (isClinic ? 'Na Clínica' : 'Grátis');
+      $('#modeLabel').textContent = pickup ? 'Retirada' : 'Entrega';
+      $('#modeFee').textContent = pickup ? 'No balcão' : 'Grátis';
       paintPay();
     }
     if (t.dataset.pay) {
@@ -828,10 +630,10 @@
       const addr = $('#delAddr').value.trim();
       const ref = $('#delRef').value.trim();
       $('#addrFld').classList.toggle('miss', !pickup && !addr);
-      if (!pickup && !addr) { $('#delAddr').focus(); return toast(isClinic ? 'Digite sua cidade ou unidade de preferência.' : 'Digite o endereço de entrega.'); }
+      if (!pickup && !addr) { $('#delAddr').focus(); return toast('Digite o endereço de entrega.'); }
       const pay = $('#pay .on');
       $('#payFld').classList.toggle('miss', !pay);
-      if (!pay) return toast(isClinic ? 'Escolha sua opção de preferência de pagamento.' : 'Escolha a forma de pagamento.');
+      if (!pay) return toast('Escolha a forma de pagamento.');
       const total = [...cart.entries()].reduce((sum, [i, q]) => sum + MENU[i].price * q, 0);
       let payment = pay.dataset.pay === 'cartao' ? `Cartão` : PAY[pay.dataset.pay];
       if (pay.dataset.pay === 'dinheiro') {
@@ -840,16 +642,9 @@
         if ($('#troco').value.trim() && troco <= total) { $('#troco').focus(); return toast(`O valor informado precisa ser maior que o total (${brl(total)}).`); }
         payment += troco ? `, pagamento de ${brl(troco)}` : '';
       }
-      if (isClinic) {
-        const items = [...cart.entries()].map(([i, q]) => `• ${MENU[i].name}`).join('\n');
-        const modalidade = pickup ? 'Avaliação Online (Vídeo)' : 'Consulta Presencial na Clínica';
-        const loc = addr ? `\n📍 Unidade / Cidade: ${addr}${ref ? ` (${ref})` : ''}` : '';
-        wa(`Olá, Dra.! Gostaria de solicitar uma Avaliação VIP na ${st.nome}:\n\n✨ Procedimentos de interesse:\n${items}\n\n🏛 Modalidade: ${modalidade}${loc}\n💳 Preferência de pagamento: ${payment}\n\nPoderia me passar os próximos horários disponíveis? ✨`);
-      } else {
-        const items = [...cart.entries()].map(([i, q]) => `${q}x ${MENU[i].name}`).join('\n');
-        const where = pickup ? 'Vou retirar no local.' : `Entregar em: ${addr}${ref ? ` (${ref})` : ''}`;
-        wa(`Olá! Meu pedido:\n${items}\nTotal: ${brl(total)}\n${where}\nPagamento: ${payment}`);
-      }
+      const items = [...cart.entries()].map(([i, q]) => `${q}x ${MENU[i].name}`).join('\n');
+      const where = pickup ? 'Vou retirar no local.' : `Entregar em: ${addr}${ref ? ` (${ref})` : ''}`;
+      wa(`Olá! Meu pedido:\n${items}\nTotal: ${brl(total)}\n${where}\nPagamento: ${payment}`);
     }
     if (t.hasAttribute('data-clear')) { cart.clear(); paintCart(); paintMenu(); }
     if (t.hasAttribute('data-share')) navigator.share ? navigator.share({ title: st.nome, url: location.href }).catch(() => {}) : toast('Link pronto para compartilhar.');
