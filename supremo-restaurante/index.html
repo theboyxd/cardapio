@@ -131,8 +131,20 @@
   .fld .seg { margin: 6px 0 0; }
   .fld.miss .seg { box-shadow: inset 0 0 0 2px #dc2626; }
   .hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
-  .upsell { margin-top: 16px; }
-  .upsell h3 { font-size: 15px; font-weight: 800; }
+  .upsell { margin-top: 18px; }
+  .upsell-head { margin-bottom: 8px; }
+  .upsell h3 { font-size: 15.5px; font-weight: 800; display: flex; align-items: center; gap: 6px; margin: 0; }
+  .upsell-sub { font-size: 12px; color: var(--muted); margin-top: 2px; display: block; }
+  .up-row { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 4px 2px 8px; scroll-snap-type: x proximity; user-select: none; cursor: grab; }
+  .up-row::-webkit-scrollbar { display: none; }
+  .up-card { flex: none; width: 136px; background: var(--card); border-radius: 18px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; scroll-snap-align: start; box-shadow: 0 2px 8px rgba(11,7,5,.05); border: 1px solid rgba(0,0,0,.04); }
+  .up-media { width: 100%; height: 80px; display: grid; place-items: center; background: rgba(0,0,0,.025); border-radius: 12px; overflow: hidden; }
+  .up-card img { max-width: 90%; max-height: 74px; object-fit: contain; -webkit-user-drag: none; }
+  .up-card b { font-size: 12.5px; font-weight: 700; margin: 8px 0 2px; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 31px; }
+  .up-card small { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; }
+  .up-card .foot-row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  .up-card .price { font-size: 13.5px; font-weight: 800; }
+  .up-card .add { width: 30px; height: 30px; font-size: 16px; }
   .up { display: grid; grid-template-columns: 48px 1fr auto auto; gap: 10px; align-items: center; background: var(--card); border-radius: 18px; padding: 8px; margin-top: 8px; }
   .up > div { min-width: 0; }
   .up img { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
@@ -175,6 +187,7 @@
 <div class="app" id="app">
   <header class="top">
     <div class="logo" id="logo"></div>
+    <div class="who"><small>Cardápio digital</small><b data-name></b></div>
     <div class="icons">
       <button class="icon-btn" data-toast="Favoritado!" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
       <button class="icon-btn" data-share aria-label="Compartilhar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
@@ -220,7 +233,13 @@
       <button class="pill dark wide" data-go="home">Ver o cardápio</button></div>
     <div id="cartFull" hidden>
       <div class="panel"><div id="lines"></div></div>
-      <div class="upsell" id="upsell" hidden><h3 id="upTitle">Peça também</h3><div id="upList"></div></div>
+      <div class="upsell" id="upsell" hidden>
+        <div class="upsell-head">
+          <h3 id="upTitle">🥤 Vai um refrigerante gelado?</h3>
+          <small class="upsell-sub" id="upSub">Bebidas bem geladas para acompanhar seu pedido</small>
+        </div>
+        <div class="up-row" id="upList"></div>
+      </div>
       <div class="seg" id="mode"><button type="button" class="on" data-mode="entrega">Entrega</button><button type="button" data-mode="retirada">Retirar no local</button></div>
       <div id="addrBox">
         <label class="fld" id="addrFld">Endereço de entrega<input id="delAddr" placeholder="Rua, número e bairro" autocomplete="street-address"></label>
@@ -306,7 +325,11 @@
   Object.entries(window.__CFG__ || {}).forEach(([k, v]) => { if (!P.has(k)) P.set(k, String(v)); });
   const PLUS = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
   const MINUS = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg>';
-  const img = (id, w = 500) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+  const img = (id, w = 500) => {
+    if (!id) return `https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=${w}&q=70`;
+    if (typeof id === 'string' && (id.startsWith('http://') || id.startsWith('https://'))) return id;
+    return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+  };
   const it = (cat, name, desc, price, photo) => ({ cat, name, desc, price, img: photo });
   const DRINKS = '1544145945-f90425340c7e';
   const CAKE = '1565958011703-44f9829ba187';
@@ -374,8 +397,63 @@
         it('Entradas', 'Harumaki', '4 rolinhos crocantes', 16.9, '1787273670681-b1886c2807a3'),
         it('Entradas', 'Missoshiru', 'Sopa de missô com tofu e cebolinha', 12.9, '1763470260582-894ae15f43bb')],
       up: ['Refrigerante', 'Harumaki', 'Missoshiru'] },
+    dads: {
+      nome: "Dad's Burger", cor: '#FAB309', cor2: '#121212', logo: 'logo.png', whats: '5551994575683', end: "Rua Sapé, 947 - Passo d'Areia, Porto Alegre - RS", nota: '4,8', aval: '1.250', tagline: 'Os melhores hambúrgueres artesanais e combos na caixa de Porto Alegre. Smash na chapa e porções crocantes.',
+      feat: { tag: '★ Mais pedido', title: "Combo na Caixa: 2x Dad's Top Premium", text: '2 Burgers artesanais, nuggets, onion rings, batata frita com cheddar e bacon.', img: 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303112347_J55T_iblob', order: "Combo na Caixa: 2x Dad's Top Premium" },
+      trend: [0, 13, 14, 29], items: [
+        it('Combos na Caixa', 'Combo na Caixa: 2x Big Bacon', '2 Deliciosos Hambúrgueres Big Bacon, nuggets de frango, onion rings, calabresa e batata...', 94.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303112347_J55T_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: 3x Cheesburger', '3 Deliciosos Hambúrgueres Cheesburger, nuggets de frango, onion rings, calabresa e batata...', 93.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303120006_A4F6_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: 4x Big Dad´s Supremo + Refri 2L', '4 Deliciosos Hambúrgueres Big Dad\'s Supremo, nuggets de frango, onion rings, batata frita e refri...', 152.91, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303120019_ONI5_iblob'),
+        it('Combos na Caixa', "Combo na Caixa: Dad\'s Top Premium", '1x Delicioso Hambúrguer Dad\'s Top Premium, acompanhado de nuggets, onion rings e fritas...', 71.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202211082221_VD03_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: 2x Magnífico', '2 Deliciosos Hambúrgueres Magnífico, acompanhados de nuggets de frango, onion rings e calabresa...', 99.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303112347_J55T_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: 4x Cheddar Duplo', '4 Deliciosos Hambúrgueres Cheddar Duplo, acompanhados de nuggets, onion rings e batata frita...', 138.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303120019_ONI5_iblob'),
+        it('Combos na Caixa', "Combo na Caixa: 2x Dad\'s Top Premium", '2 Deliciosos Hambúrgueres Dad\'s Top Premium, nuggets, onion rings, calabresa e batata com cheddar...', 96.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303112347_J55T_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: Cheddar Duplo', '1x Delicioso Hambúrguer Cheddar Duplo, acompanhado de nuggets de frango, onion rings e fritas...', 71.91, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202211082221_VD03_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: Serve 6 Pessoas + Fritas', '6 hambúrgueres artesanais com carne suculenta e molho especial + porção generosa de fritas...', 135.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303120039_XLY5_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: Serve 10 Pessoas Insano', '10 burgers Db Carne ou Frango, 10 onion rings, 10 nuggets, batata com cheddar e bacon...', 203.0, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202212170055_16O5_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: Serve 7 Pessoas', '7 burgers Db Carne ou Frango, 7 onion rings, 7 nuggets, batata com cheddar e bacon e calabresa...', 199.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202112150011_QTS0_iblob'),
+        it('Combos na Caixa', 'Combo: Big Bacon 1 Pessoa', '1x Delicioso Hambúrguer Big Bacon, acompanhado de nuggets, onion rings e batata frita...', 71.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202211082221_VD03_iblob'),
+        it('Combos na Caixa', 'Combo na Caixa: 4x Cheddar Jr', '4 Hambúrgueres Cheddar Jr, acompanhados de nuggets de frango, calabresa e onion rings...', 169.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202211082329_3V46_iblob'),
+        it('Burgers Artesanais', 'Cheese Salada Db', 'Blend artesanal 100g, alface e tomate frescos, maionese e molho especial no pão brioche...', 32.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202310302325_1SEJ_iblob'),
+        it('Burgers Artesanais', 'Big Bacon', 'Blend artesanal 100g, bacon crocante, onion rings, muçarela, alface e molho no pão brioche...', 49.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202108280340_C42R_iblob'),
+        it('Burgers Artesanais', 'Cheeseburguer Cheddar', 'Suculento hambúrguer artesanal 100g com muito queijo cheddar cremoso no pão brioche tostado...', 29.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202310302314_X2E8_iblob'),
+        it('Burgers Artesanais', 'Duplo Calabresa', '2 blends artesanais de 100g cada, calabresa fatiada, molho barbecue e queijo derretido...', 45.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202207031919_82C3_iblob'),
+        it('Burgers Artesanais', "Dad\'s Turbo", 'Blend artesanal 100g, calabresa, bacon defumado, cebola roxa, queijo cheddar e muçarela...', 59.43, '1586190848861-99aa4a171e90'),
+        it('Burgers Artesanais', 'Big Mom Chicken', '2 carnes de frango crocante de 100g cada, queijo muçarela, alface fresca e maionese especial...', 40.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202408100303_0IJ0_iblob'),
+        it('Burgers Artesanais', 'Db Chicken Bacon', 'Frango empanado crocante com maionese suave de queijo e fatias de bacon defumado crocante...', 38.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202211240120_2V2T_iblob'),
+        it('Burgers Artesanais', 'Db Cheddar Duplo', '2 carnes artesanais de 100g, cheddar fatiado e cheddar cremoso com cebola caramelizada...', 49.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202310302252_ID22_iblob'),
+        it('Burgers Artesanais', 'Db Cowboy', 'Blend artesanal 100g, queijo muçarela, tomate fresco, onion rings empanadas e molho barbecue...', 49.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202108190130_3GTY_iblob'),
+        it('Burgers Artesanais', "Dad\'s Top Premium", 'Blend artesanal 100g, bacon defumado crocante, queijo muçarela, cebola roxa e molho premium...', 49.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202108032319_01NG_iblob'),
+        it('Burgers Artesanais', 'Magnífico', 'Hambúrguer artesanal 100g, queijo cheddar, alface, tomate fresco e nosso molho da casa...', 47.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202310302258_7P32_iblob'),
+        it('Burgers Artesanais', 'Triplo Bacon', '3 blends artesanais de 100g cada, triplo bacon crocante e triplo queijo cheddar derretido...', 64.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202303120237_ROT6_iblob'),
+        it('Burgers Artesanais', 'Db Furioso', 'Blend artesanal 100g, muçarela, iscas de bacon defumado, onion rings e molho levemente picante...', 49.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202108190102_FW0H_iblob'),
+        it('Burgers Artesanais', 'Cheddar Duplo Salada', '2 carnes artesanais de 100g cada, queijo cheddar, alface, tomate e maionese especial no brioche...', 59.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202310302316_A551_iblob'),
+        it('Burgers Artesanais', 'Triplo Magnífico', '3 carnes artesanais de 100g cada, cheddar cremoso, alface crocante e tomate fresco no brioche...', 56.01, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202103042151_1J19_blob'),
+        it('Burgers Artesanais', 'Chicken Burger', 'Hambúrguer artesanal de frango empanado, alface fresca e maionese especial no pão brioche...', 35.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202310302256_4S70_iblob'),
+        it('Porções', 'Onions Rings', 'Aproximadamente 150g de anéis de cebola dourados e super crocantes com molho...', 22.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202509302141_2260_iblob'),
+        it('Porções', 'Trio Magnífico', 'Batata frita crocante coberta com molho cheddar e bacon + onion rings + nuggets dourados...', 44.92, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/201706231921_35183172blob'),
+        it('Porções', 'Batata Frita', 'Aproximadamente 150g de batatas fritas sequinhas, crocantes e bem temperadas...', 22.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202509302134_SG75_iblob'),
+        it('Porções', 'Combo Onion Rings', '350g de onion rings empanadas (20 a 25 unidades) com molho barbecue e maionese...', 49.62, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202109032057_15LV_iblob'),
+        it('Porções', 'Mega Dad´s Batata + Guaraná 2L', 'Combinação perfeita: batata frita com calabresa fatiada, bacon e cheddar cremoso + Guaraná 2L...', 95.92, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202211232123_N2HV_iblob'),
+        it('Porções', 'Combo Nuggets', '650g de nuggets dourados crocantes (20 a 25 unidades) com 50ml barbecue e maionese...', 63.92, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202109032101_4UI1_iblob'),
+        it('Bebidas', 'Coca-Cola 350ml', 'Lata 350 ml, bem gelada', 9.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202111190022_LMO1_iblob'),
+        it('Bebidas', 'Sprite Lata', 'Lata 350 ml, refrescante e gelada', 9.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202111190025_4E7Y_iblob'),
+        it('Bebidas', 'Coca-Cola Original 2L', 'Garrafa 2 Litros para dividir com a galera', 23.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202111190051_1Q77_iblob'),
+        it('Bebidas', 'Coca-Cola Zero 2L', 'Garrafa 2 Litros Zero Açúcar bem gelada', 22.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202111190017_0ARL_iblob'),
+        it('Bebidas', 'Fanta Laranja Lata 350ml', 'Lata 350 ml, bem gelada', 12.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202210211307_zym9dpas7inblob'),
+        it('Bebidas', 'Refrigerante Guaraná Fruki Lata 350ml', 'O guaraná tradicional do RS, bem gelado', 12.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202210180253_9cjw6ek1ic7blob'),
+        it('Bebidas', 'Refrigerante Fruki Guaraná 200ml', 'Garrafinha 200 ml geladinha', 5.9, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202210192223_hq8hi7dcoplblob'),
+        it('Bebidas', 'Refrigerante Coca-Cola Garrafa 200ml', 'Garrafa 200 ml perfeita para o lanche', 6.5, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202210180755_jbj81jt1flnblob'),
+        it('Bebidas', 'Cerveja Amstel Latão 473ml', 'Latão 473 ml puro malte geladíssimo', 13.5, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202111190019_RA0P_iblob'),
+        it('Bebidas', 'Cerveja Heineken 330ml', 'Long neck 330 ml trincando de gelada', 13.5, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202210200022_3etbaqlcl88blob'),
+        it('Bebidas', 'Cerveja Heineken 600ml', 'Garrafa 600 ml puro malte bem gelada', 19.0, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202111192252_263I_iblob'),
+        it('Bebidas', 'Cerveja Polar 473ml', 'A cerveja do Rio Grande, latão 473 ml gelada', 12.5, 'https://client-assets.anota.ai/produtos/68dd67c43503c81262369b16/202111190018_21Y5_iblob')],
+      up: ['Coca-Cola 350ml', 'Refrigerante Guaraná Fruki Lata 350ml', 'Sprite Lata', 'Fanta Laranja Lata 350ml', 'Coca-Cola Original 2L', 'Coca-Cola Zero 2L', 'Refrigerante Fruki Guaraná 200ml', 'Refrigerante Coca-Cola Garrafa 200ml', 'Batata Frita', 'Onions Rings'] },
   };
-  const T = TEMPLATES[P.get('tipo')] || TEMPLATES.restaurante;
+  const reqTipo = P.get('tipo');
+  const reqNome = P.get('nome') || '';
+  const isDads = reqTipo === 'dads' || /dad'?s/i.test(reqNome);
+  const T = isDads ? TEMPLATES.dads : (TEMPLATES[reqTipo] || TEMPLATES.restaurante);
   const MENU = T.items;
   const brl = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const $ = (s) => document.querySelector(s);
@@ -388,11 +466,11 @@
     st.nome = (P.get('nome') || T.nome).slice(0, 60);
     st.cor = hex('cor', T.cor);
     st.cor2 = hex('cor2', T.cor2);
-    st.logo = /^(https?:\/\/|logo\.png$)/i.test(P.get('logo') || '') ? P.get('logo') : ''; // logo.png: o logo colado no Radar
-    st.whats = (P.get('whats') || '').replace(/\D/g, '').slice(0, 13);
-    st.end = (P.get('end') || 'Rua das Flores, 120 · Centro').slice(0, 120);
-    st.nota = (P.get('nota') || '4,8').slice(0, 4);
-    st.aval = (P.get('aval') || '1.250').slice(0, 9);
+    st.logo = /^(https?:\/\/|logo\.png$|\/?logos\/)/i.test(P.get('logo') || '') ? P.get('logo') : (T.logo || 'logo.png');
+    st.whats = (P.get('whats') || T.whats || '').replace(/\D/g, '').slice(0, 13);
+    st.end = (P.get('end') || T.end || 'Rua das Flores, 120 · Centro').slice(0, 120);
+    st.nota = (P.get('nota') || T.nota || '4,8').slice(0, 4);
+    st.aval = (P.get('aval') || T.aval || '1.250').slice(0, 9);
     st.por = (P.get('por') || 'John').slice(0, 40);
     // texto escuro em cor clara (amarelo, bege…) e branco em cor escura, para nunca sumir
     const textOn = (c) => { const [r, g, b] = [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16) / 255);
@@ -407,12 +485,19 @@
     const taglineEl = $('#tagline');
     if (taglineEl) taglineEl.textContent = T.tagline;
     const words = st.nome.split(/\s+/).filter((w) => w && !/^(d[aeo]s?|e|o|a|&|the)$/i.test(w));
+    const initials = (words[0] ? words[0][0] : (st.nome[0] || 'R')).toUpperCase();
     if (st.logo) {
       const resolvedLogo = (st.logo === 'logo.png')
         ? (location.pathname.endsWith('/') ? 'logo.png' : `${location.pathname.replace(/\/+$/, '')}/logo.png`)
         : st.logo;
-      const imgEl = el('img', { src: resolvedLogo, alt: '' });
-      imgEl.onerror = () => { $('#logo').replaceChildren(initials); };
+      const imgEl = el('img', { src: resolvedLogo, alt: st.nome });
+      imgEl.onerror = () => {
+        if (resolvedLogo !== '/logos/ed06fa64aff6ba57.png' && /dad'?s/i.test(st.nome)) {
+          imgEl.src = '/logos/ed06fa64aff6ba57.png';
+        } else {
+          $('#logo').replaceChildren(initials);
+        }
+      };
       $('#logo').replaceChildren(imgEl);
     } else {
       $('#logo').replaceChildren(initials);
@@ -470,18 +555,45 @@
         el('button', { className: 'plus', innerHTML: PLUS, ariaLabel: 'Mais um', onclick: () => change(i, 1) })))));
   }
 
-  // "Peça também": bebida, sobremesa ou combo que ainda não está no pedido (dois por vez)
+  function addBtn(i) {
+    return el('button', { className: 'add', innerHTML: PLUS, ariaLabel: 'Adicionar', onclick: () => {
+      change(i, 1);
+      toast(`${MENU[i].name} no pedido`);
+    } });
+  }
+
+  // "Peça também": refrigerantes gelados (upsell prioritário quando não há bebida no pedido) ou porções/sobremesas
   const UP = (T.up || []).map((n) => MENU.findIndex((m) => m.name === n)).filter((i) => i >= 0);
+  const isSoda = (m) => (m.cat === 'Bebidas' || m.cat === 'Bebida Gelada?') && !/\b(cerveja|chopp|chope|heineken|amstel|polar|vinho|saquê|whisky|vodka|licor|tequila|drink|gin)\b/i.test(m.name);
   function paintUpsell() {
-    const list = UP.filter((i) => !cart.has(i)).slice(0, 2);
-    const drink = list.find((i) => MENU[i].cat === 'Bebidas');
-    const hasDrink = [...cart.keys()].some((i) => MENU[i].cat === 'Bebidas');
+    const hasDrink = [...cart.keys()].some((i) => MENU[i].cat === 'Bebidas' || MENU[i].cat === 'Bebida Gelada?');
+    let list;
+    if (!hasDrink) {
+      // Prioridade máxima: refrigerantes e bebidas geladas para acompanhar o lanche
+      list = UP.filter((i) => !cart.has(i) && isSoda(MENU[i]));
+      if (!list.length) {
+        list = MENU.map((_, i) => i).filter((i) => !cart.has(i) && isSoda(MENU[i]));
+      }
+      $('#upTitle').innerHTML = '🥤 Vai um refrigerante gelado?';
+      if ($('#upSub')) $('#upSub').textContent = 'Bebidas bem geladas para acompanhar seu pedido';
+    } else {
+      // Já tem bebida: sugere acompanhamentos crocantes, sobremesas ou outras opções
+      list = UP.filter((i) => !cart.has(i));
+      if (!list.length) {
+        list = MENU.map((_, i) => i).filter((i) => !cart.has(i) && (MENU[i].cat === 'Porções' || MENU[i].cat === 'Sobremesas' || isSoda(MENU[i])));
+      }
+      $('#upTitle').textContent = 'Peça também';
+      if ($('#upSub')) $('#upSub').textContent = 'Acompanhamentos crocantes e sobremesas';
+    }
+    list = list.slice(0, 8);
     $('#upsell').hidden = !list.length;
-    $('#upTitle').textContent = drink != null && !hasDrink ? `Adicione uma bebida por ${brl(MENU[drink].price)}` : 'Peça também';
-    $('#upList').replaceChildren(...list.map((i) => el('div', { className: 'up' },
-      el('img', { src: img(MENU[i].img, 120), alt: '' }),
-      el('div', {}, el('b', { textContent: MENU[i].name }), el('small', { textContent: MENU[i].desc })),
-      el('span', { className: 'price', textContent: brl(MENU[i].price) }), addBtn(i))));
+    $('#upList').replaceChildren(...list.map((i) => el('div', { className: 'up-card' },
+      el('div', { className: 'up-media' }, el('img', { src: img(MENU[i].img, 200), alt: MENU[i].name, loading: 'lazy' })),
+      el('b', { textContent: MENU[i].name, title: MENU[i].name }),
+      el('small', { textContent: MENU[i].desc || 'Gelado' }),
+      el('div', { className: 'foot-row' },
+        el('span', { className: 'price', textContent: brl(MENU[i].price) }),
+        addBtn(i)))));
   }
 
   // Pagamento: Pix, cartão (maquininha na entrega ou no balcão) ou dinheiro com troco
@@ -569,9 +681,6 @@
     const label = `${pad(h)}:${(k + 1) % 2 ? '30' : '00'}`;
     return el('option', { value: label, textContent: label, selected: label === '20:00' });
   }));
-  const addBtn = (i) => el('button', { className: 'add', innerHTML: PLUS, ariaLabel: 'Adicionar', onclick: () => {
-    change(i, 1); toast(`${MENU[i].name} no pedido`);
-  } });
 
   let cat = 'Todos';
   function paintMenu() {
@@ -673,7 +782,7 @@
     window.addEventListener('pointerup', () => { drag = false; setTimeout(() => { moved = false; }, 0); }); // só o clique de soltar é ignorado
     row.addEventListener('click', (e) => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true); // arrastou: não é clique
   }
-  document.querySelectorAll('.trend, .chips').forEach(sideScroll);
+  document.querySelectorAll('.trend, .chips, .up-row').forEach(sideScroll);
   const arrows = () => {
     const r = $('#trend');
     document.querySelector('[data-slide="-1"]').disabled = r.scrollLeft <= 0;
@@ -718,6 +827,8 @@
   paintHours();
   setInterval(paintHours, 60000); // o selo muda sozinho quando abre ou fecha
   arrows();
+  if (P.has('add')) { const idx = Number(P.get('add')); if (!isNaN(idx) && MENU[idx]) change(idx, 1); }
+  if (P.has('aba')) go(P.get('aba'));
 })();
 </script>
 </body>
